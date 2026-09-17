@@ -3,7 +3,7 @@ name: hourly-observation
 on:
   workflow_dispatch:
   schedule:
-    # Intentionally off the top of the hour to reduce scheduler congestion.
+    # Off the top of the hour to reduce scheduler congestion.
     - cron: "23 * * * *"
 
 permissions:
@@ -16,12 +16,13 @@ concurrency:
 jobs:
   observe:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
 
@@ -30,7 +31,7 @@ jobs:
           PYTHONPATH: src
         run: python -m unittest discover -s tests -v
 
-      - name: Collect real RPC observations
+      - name: Collect real network observations
         id: collect
         env:
           PYTHONPATH: src
@@ -49,7 +50,13 @@ jobs:
           fi
           echo "has_data=true" >> "$GITHUB_OUTPUT"
 
-      - name: Build reproducible reports
+      - name: Validate generated observation data
+        if: steps.collect.outputs.has_data == 'true'
+        env:
+          PYTHONPATH: src
+        run: python scripts/validate_data.py
+
+      - name: Build reproducible reports and rollups
         if: steps.collect.outputs.has_data == 'true'
         env:
           PYTHONPATH: src
@@ -73,7 +80,6 @@ jobs:
         run: |
           if [ -z "$COMMIT_EMAIL" ]; then
             echo "Repository variable COMMIT_EMAIL is required."
-            echo "Use a verified GitHub email or the noreply address shown in GitHub Settings > Emails."
             exit 1
           fi
           if [ -z "$COMMIT_NAME" ]; then
@@ -95,5 +101,5 @@ jobs:
           fi
 
           stamp="$(date -u +'%Y-%m-%dT%H:%MZ')"
-          git commit -m "data(auto): record RPC observation ${stamp}"
+          git commit -m "data(auto): record network observation ${stamp}"
           git push

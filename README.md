@@ -1,19 +1,20 @@
 # Chain Observatory
 
-A transparent, reproducible EVM RPC observatory that records real network measurements on a fixed cadence and publishes the raw data alongside generated reports.
+A transparent, reproducible EVM network observatory that records real RPC, block, fee-market, node and health measurements on a fixed cadence and publishes raw data alongside generated reports.
 
 This repository is intentionally separate from production application repositories. It never imports, modifies, deploys, or writes to those codebases.
 
 ## What it measures
 
-Each observation performs read-only JSON-RPC calls:
+Each observation performs read-only JSON-RPC calls including:
 
-- `eth_chainId`
-- `eth_blockNumber`
-- `eth_gasPrice`
+- `eth_chainId` / `net_version`
+- `eth_blockNumber` / `eth_getBlockByNumber`
+- `eth_gasPrice` / `eth_feeHistory`
+- `eth_syncing` / `net_peerCount`
 - `web3_clientVersion`
 
-For every configured network, the collector stores call success/failure, latency, chain ID, block height, gas price, and client version. The workflow currently includes Ethereum Mainnet and Arc Mainnet.
+For every configured network, V2 stores RPC success/failure and latency plus block age, transaction count, gas utilization, base fee, fee-history summaries, client fingerprint, peer count when exposed, sync state, deterministic health score, and block progression versus the previous snapshot. Unsupported provider methods are recorded as failed calls rather than fabricated values.
 
 ## Why the raw data is committed
 
@@ -23,9 +24,7 @@ The automation is intentionally obvious in commit messages (`data(auto): ...`) a
 
 ## Cadence
 
-The GitHub Actions workflow runs hourly at minute 23 UTC. Hourly sampling produces at most 24 scheduled data commits per day when measurements succeed.
-
-That is deliberately far below high-frequency commit farming patterns while still creating a meaningful longitudinal dataset.
+The GitHub Actions workflow runs hourly at minute 23 UTC. Hourly sampling produces at most 24 scheduled data commits per day when measurements succeed. The cadence is intentionally conservative: dataset usefulness and auditability take priority over raw commit volume.
 
 ## Repository layout
 
@@ -37,7 +36,7 @@ That is deliberately far below high-frequency commit farming patterns while stil
 ├── config/
 │   └── networks.json     # monitored networks
 ├── data/observations/    # raw immutable JSON snapshots
-├── metrics/              # optional GitHub profile snapshot
+├── metrics/              # latest network state, daily rollups, CSV history, profile snapshot
 ├── reports/
 │   ├── daily/            # daily aggregates
 │   ├── latest.md         # latest human-readable snapshot
@@ -86,6 +85,16 @@ Do not guess the noreply address. Copy the exact address GitHub shows in your ac
 The hourly workflow also attempts to snapshot GitHub's `contributionsCollection` GraphQL data into `metrics/profile-latest.json`. Public data can often be queried with the workflow token; if you want a broader authenticated view, create a suitable token and store it as the repository secret `PROFILE_TOKEN`.
 
 The tracker is observational only. It does not create issues, pull requests, repositories, or other activity.
+
+## V2 data products
+
+- immutable raw observations under `data/observations/`
+- `metrics/network-latest.json` for machine-readable current state
+- `metrics/daily/YYYY-MM-DD.json` daily rollups
+- `metrics/daily-history.csv` analysis-friendly historical summary
+- richer Markdown daily/latest reports
+- schema validation before every generated commit
+- deterministic health scoring and block-progression estimates
 
 ## Safety / quality rules
 
