@@ -1,0 +1,99 @@
+name: hourly-observation
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Intentionally off the top of the hour to reduce scheduler congestion.
+    - cron: "23 * * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: chain-observatory-hourly
+  cancel-in-progress: false
+
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Test collector before writing data
+        env:
+          PYTHONPATH: src
+        run: python -m unittest discover -s tests -v
+
+      - name: Collect real RPC observations
+        id: collect
+        env:
+          PYTHONPATH: src
+        run: |
+          set +e
+          python scripts/collect.py --config config/networks.json --out data/observations
+          code=$?
+          set -e
+          if [ "$code" -eq 2 ]; then
+            echo "No successful observation; ending without commit."
+            echo "has_data=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [ "$code" -ne 0 ]; then
+            exit "$code"
+          fi
+          echo "has_data=true" >> "$GITHUB_OUTPUT"
+
+      - name: Build reproducible reports
+        if: steps.collect.outputs.has_data == 'true'
+        env:
+          PYTHONPATH: src
+        run: python scripts/build_report.py
+
+      - name: Snapshot public contribution metrics
+        if: steps.collect.outputs.has_data == 'true'
+        continue-on-error: true
+        env:
+          PYTHONPATH: src
+          PROFILE_LOGIN: khenzarr
+          PROFILE_TOKEN: ${{ secrets.PROFILE_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python scripts/profile_snapshot.py
+
+      - name: Commit only substantive generated data
+        if: steps.collect.outputs.has_data == 'true'
+        env:
+          COMMIT_NAME: ${{ vars.COMMIT_NAME }}
+          COMMIT_EMAIL: ${{ vars.COMMIT_EMAIL }}
+        run: |
+          if [ -z "$COMMIT_EMAIL" ]; then
+            echo "Repository variable COMMIT_EMAIL is required."
+            echo "Use a verified GitHub email or the noreply address shown in GitHub Settings > Emails."
+            exit 1
+          fi
+          if [ -z "$COMMIT_NAME" ]; then
+            COMMIT_NAME="khenzarr"
+          fi
+
+          if [ -z "$(git status --porcelain -- data/ reports/ metrics/)" ]; then
+            echo "No generated changes; no commit."
+            exit 0
+          fi
+
+          git config user.name "$COMMIT_NAME"
+          git config user.email "$COMMIT_EMAIL"
+          git add data/ reports/ metrics/ || true
+
+          if git diff --cached --quiet; then
+            echo "Nothing staged; no commit."
+            exit 0
+          fi
+
+          stamp="$(date -u +'%Y-%m-%dT%H:%MZ')"
+          git commit -m "data(auto): record RPC observation ${stamp}"
+          git push
