@@ -8,7 +8,7 @@ from typing import Any
 
 def validate_payload(payload: dict[str, Any]) -> list[str]:
     errors: list[str] = []
-    if payload.get("schema_version") not in (1, 2):
+    if payload.get("schema_version") not in (1, 2, 3):
         errors.append("unsupported schema_version")
     if not isinstance(payload.get("collected_at_utc"), str):
         errors.append("missing collected_at_utc")
@@ -31,6 +31,12 @@ def validate_payload(payload: dict[str, Any]) -> list[str]:
         score = network.get("health_score")
         if score is not None and (not isinstance(score, int) or score < 0 or score > 100):
             errors.append(f"{prefix}.health_score outside 0..100")
+        anomalies = network.get("anomalies")
+        if anomalies is not None and not isinstance(anomalies, list):
+            errors.append(f"{prefix}.anomalies must be a list")
+        capabilities = network.get("capabilities")
+        if capabilities is not None and not isinstance(capabilities, dict):
+            errors.append(f"{prefix}.capabilities must be an object")
     return errors
 
 

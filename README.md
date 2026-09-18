@@ -1,126 +1,130 @@
 # Chain Observatory
 
-A transparent, reproducible EVM network observatory that records real RPC, block, fee-market, node and health measurements on a fixed cadence and publishes raw data alongside generated reports.
+Chain Observatory is a transparent, reproducible multi-chain EVM observability dataset. It samples public JSON-RPC endpoints on a fixed cadence, records raw measurements, validates every snapshot, and publishes machine-readable and human-readable rollups.
 
-This repository is intentionally separate from production application repositories. It never imports, modifies, deploys, or writes to those codebases.
+The repository is deliberately isolated from application repositories: it never imports, modifies, deploys, or pushes to another codebase.
+
+## Networks
+
+V3 monitors six public EVM networks from one reproducible collector:
+
+- Ethereum Mainnet
+- Arc Mainnet
+- Base Mainnet
+- OP Mainnet
+- Arbitrum One
+- Avalanche C-Chain
+
+Endpoints are declared in `config/networks.json`. No wallet, private key, transaction signing, or write RPC is used.
 
 ## What it measures
 
-Each observation performs read-only JSON-RPC calls including:
+Each sample performs read-only JSON-RPC calls for chain identity, chain head, gas, latest-block metadata, node/client identity, sync state and provider capabilities. Where supported it also records fee-history, priority-fee and peer-count information.
 
-- `eth_chainId` / `net_version`
-- `eth_blockNumber` / `eth_getBlockByNumber`
-- `eth_gasPrice` / `eth_feeHistory`
-- `eth_syncing` / `net_peerCount`
-- `web3_clientVersion`
+For each network the dataset includes:
 
-For every configured network, V2 stores RPC success/failure and latency plus block age, transaction count, gas utilization, base fee, fee-history summaries, client fingerprint, peer count when exposed, sync state, deterministic health score, and block progression versus the previous snapshot. Unsupported provider methods are recorded as failed calls rather than fabricated values.
+- core RPC success ratio and latency
+- expected-vs-observed chain ID
+- latest block number, hash and age
+- transaction count and gas utilization
+- gas price and EIP-1559 fee-history summaries
+- client fingerprint and sync state
+- block progression and estimated block time
+- provider capability flags for optional methods
+- deterministic 0–100 health score
+- transparent rule-based anomalies
 
-## Why the raw data is committed
+Unsupported optional methods do not artificially reduce the core endpoint health score.
 
-The repository is a time-series engineering artifact: every generated commit corresponds to a successful external measurement. There are no empty commits and no timestamp-only changes. If every RPC probe fails, the workflow exits without creating a data commit.
+## Sampling cadence
 
-The automation is intentionally obvious in commit messages (`data(auto): ...`) and in this README. The goal is a useful public engineering dataset, not hidden activity.
+The scheduled workflow samples at minutes `07`, `22`, `37` and `52` of each UTC hour: four measurements per hour, or at most 96 scheduled observation commits per day when at least one configured endpoint returns real data.
 
-## Cadence
+The offsets avoid the top-of-hour scheduler hotspot. A run that cannot obtain any successful measurement exits without creating a commit. There are no empty commits and no timestamp-only commits.
 
-The GitHub Actions workflow runs hourly at minute 23 UTC. Hourly sampling produces at most 24 scheduled data commits per day when measurements succeed. The cadence is intentionally conservative: dataset usefulness and auditability take priority over raw commit volume.
-
-## Repository layout
+## Data products
 
 ```text
 .
-├── .github/workflows/
-│   ├── observe.yml       # scheduled collector + report generation
-│   └── quality.yml       # tests for source changes
-├── config/
-│   └── networks.json     # monitored networks
-├── data/observations/    # raw immutable JSON snapshots
-├── metrics/              # latest network state, daily rollups, CSV history, profile snapshot
+├── config/networks.json           # monitored public endpoints
+├── data/observations/YYYY-MM-DD/  # immutable raw JSON snapshots
+├── metrics/
+│   ├── network-latest.json        # latest normalized state
+│   ├── daily/YYYY-MM-DD.json      # daily rollups
+│   └── daily-history.csv          # analysis-friendly history
 ├── reports/
-│   ├── daily/            # daily aggregates
-│   ├── latest.md         # latest human-readable snapshot
-│   └── README.md         # report index
+│   ├── latest.md                  # latest human-readable state
+│   ├── daily/YYYY-MM-DD.md        # daily reports
+│   └── README.md                  # report index
 ├── src/chain_observatory/
 ├── scripts/
 └── tests/
 ```
 
-## Local test
+Generated commits are intentionally labeled `obs(auto): ...` so automated data collection is obvious in history.
 
-Python 3.11+ is sufficient; the collector uses only the standard library.
+## Health and anomaly model
+
+Health is based on four observable signals: successful core RPC calls, expected chain ID, core-call latency, and chain-head freshness. Optional provider methods are tracked as capabilities rather than treated as mandatory node-health signals.
+
+V3 currently emits rule-based anomalies for:
+
+- chain-ID mismatch
+- low/degraded health
+- stale/aging chain head
+- no observed block progression over a meaningful interval
+- large latency regression versus the previous sample
+
+These rules are deterministic and stored with the raw sample; no opaque model is used.
+
+## Reproduce locally
+
+Python 3.11+ is sufficient and the collector uses only the standard library.
 
 ```bash
 PYTHONPATH=src python -m unittest discover -s tests -v
 PYTHONPATH=src python scripts/collect.py
+PYTHONPATH=src python scripts/validate_data.py
 PYTHONPATH=src python scripts/build_report.py
 ```
 
-On Windows PowerShell:
+PowerShell:
 
 ```powershell
 $env:PYTHONPATH="src"
 python -m unittest discover -s tests -v
 python scripts/collect.py
+python scripts/validate_data.py
 python scripts/build_report.py
 ```
 
-## One-time GitHub setup
+## Automation safety properties
 
-The scheduled workflow needs one repository variable so generated commits use an email GitHub can associate with your account:
-
-- `COMMIT_NAME` — for example `khenzarr`
-- `COMMIT_EMAIL` — a verified email connected to your GitHub account, or the exact GitHub-provided noreply address shown under Settings → Emails
-
-The repository includes `bootstrap.ps1` for creating the repository with GitHub CLI and setting both variables:
-
-```powershell
-.\bootstrap.ps1 -CommitEmail "YOUR_GITHUB_NOREPLY_OR_VERIFIED_EMAIL"
-```
-
-Do not guess the noreply address. Copy the exact address GitHub shows in your account settings.
-
-## Optional contribution tracker
-
-The hourly workflow also attempts to snapshot GitHub's `contributionsCollection` GraphQL data into `metrics/profile-latest.json`. Public data can often be queried with the workflow token; if you want a broader authenticated view, create a suitable token and store it as the repository secret `PROFILE_TOKEN`.
-
-The tracker is observational only. It does not create issues, pull requests, repositories, or other activity.
-
-## V2 data products
-
-- immutable raw observations under `data/observations/`
-- `metrics/network-latest.json` for machine-readable current state
-- `metrics/daily/YYYY-MM-DD.json` daily rollups
-- `metrics/daily-history.csv` analysis-friendly historical summary
-- richer Markdown daily/latest reports
-- schema validation before every generated commit
-- deterministic health scoring and block-progression estimates
-
-## Safety / quality rules
-
-1. Production repositories are out of scope.
-2. No empty commits.
-3. No historical backdating.
-4. No generated issues or PRs.
+1. Read-only RPC methods only.
+2. No wallets, private keys or transaction signing.
+3. No access to any other repository.
+4. No empty or backdated commits.
 5. No fabricated measurements.
-6. No commit is created when every probe fails.
-7. Generated commits are labeled as automation.
-8. Secrets never belong in committed config files.
+6. No generated issues or pull requests.
+7. No commit when all configured probes fail.
+8. Generated commits remain visibly automated.
+9. Concurrent scheduled runs rebase normally; force-push is never used.
 
-## Adding another network
+## Adding a network
 
-Add an entry to `config/networks.json`:
+Add a public endpoint to `config/networks.json`:
 
 ```json
 {
   "name": "example-mainnet",
   "rpc_url": "https://example-rpc.invalid",
   "expected_chain_id": 12345,
+  "family": "evm",
   "enabled": true
 }
 ```
 
-For authenticated providers, extend the collector to read the endpoint from an Actions secret instead of committing credentials.
+Authenticated RPC providers should be wired through Actions secrets rather than committed credentials.
 
 ## License
 

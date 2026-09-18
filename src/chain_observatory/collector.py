@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from .anomaly import detect_anomalies
 from .rpc import probe_endpoint
 
 
@@ -28,13 +29,16 @@ def _latest_previous(output_root: Path) -> dict[str, Any] | None:
     return None
 
 
-def _attach_progression(result: dict[str, Any], name: str, previous: dict[str, Any] | None, now: datetime) -> None:
-    result["progression"] = None
+def _previous_network(previous: dict[str, Any] | None, name: str) -> dict[str, Any] | None:
     if not previous:
-        return
-    previous_at = previous.get("collected_at_utc")
-    previous_network = next((n for n in previous.get("networks", []) if n.get("name") == name), None)
-    if not previous_at or not isinstance(previous_network, dict):
+        return None
+    return next((n for n in previous.get("networks", []) if n.get("name") == name), None)
+
+
+def _attach_progression(result: dict[str, Any], previous_network: dict[str, Any] | None,
+                        previous_at: str | None, now: datetime) -> None:
+    result["progression"] = None
+    if not previous_network or not previous_at:
         return
     current_block = result.get("block_number")
     previous_block = previous_network.get("block_number")
@@ -59,6 +63,7 @@ def collect(config_path: Path, output_root: Path, timeout: float = 12.0) -> Path
     config = load_config(config_path)
     now = datetime.now(timezone.utc).replace(microsecond=0)
     previous = _latest_previous(output_root)
+    previous_at = previous.get("collected_at_utc") if previous else None
     records: list[dict[str, Any]] = []
 
     for network in config["networks"]:
@@ -67,12 +72,15 @@ def collect(config_path: Path, output_root: Path, timeout: float = 12.0) -> Path
         name = str(network["name"])
         rpc_url = str(network["rpc_url"])
         expected_chain_id = network.get("expected_chain_id")
+        prior = _previous_network(previous, name)
         result = probe_endpoint(rpc_url, timeout=timeout, expected_chain_id=expected_chain_id)
         result.update({
             "name": name,
+            "family": network.get("family"),
             "expected_chain_id": expected_chain_id,
         })
-        _attach_progression(result, name, previous, now)
+        _attach_progression(result, prior, previous_at, now)
+        result["anomalies"] = detect_anomalies(result, prior)
         records.append(result)
 
     if not records or not any(item.get("ok") for item in records):
@@ -80,9 +88,13 @@ def collect(config_path: Path, output_root: Path, timeout: float = 12.0) -> Path
         return None
 
     payload = {
-        "schema_version": 2,
+        "schema_version": 3,
+        "collector_version": "0.3.0",
+        "sampling_interval_minutes": 15,
         "collected_at_utc": now.isoformat().replace("+00:00", "Z"),
         "network_count": len(records),
+        "healthy_network_count": sum(1 for item in records if item.get("health_score", 0) >= 80),
+        "anomaly_count": sum(len(item.get("anomalies", [])) for item in records),
         "networks": records,
     }
 
@@ -95,7 +107,7 @@ def collect(config_path: Path, output_root: Path, timeout: float = 12.0) -> Path
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Collect EVM JSON-RPC observations.")
+    parser = argparse.ArgumentParser(description="Collect multi-chain EVM JSON-RPC observations.")
     parser.add_argument("--config", type=Path, default=Path("config/networks.json"))
     parser.add_argument("--out", type=Path, default=Path("data/observations"))
     parser.add_argument("--timeout", type=float, default=12.0)

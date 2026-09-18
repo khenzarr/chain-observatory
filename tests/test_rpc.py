@@ -42,6 +42,7 @@ class RpcTests(unittest.TestCase):
             "web3_clientVersion": RpcResult("web3_clientVersion", True, 40.0, "client/1.0"),
             "eth_getBlockByNumber": RpcResult("eth_getBlockByNumber", True, 50.0, {"number":"0x64","timestamp":"0x1","gasLimit":"0x64","gasUsed":"0x32","transactions":[]}),
             "eth_feeHistory": RpcResult("eth_feeHistory", True, 60.0, {"oldestBlock":"0x60","baseFeePerGas":["0x1","0x2"],"gasUsedRatio":[0.5],"reward":[["0x1","0x2","0x3"]]}),
+            "eth_maxPriorityFeePerGas": RpcResult("eth_maxPriorityFeePerGas", True, 65.0, "0x5"),
             "eth_syncing": RpcResult("eth_syncing", True, 70.0, False),
             "net_peerCount": RpcResult("net_peerCount", True, 80.0, "0x8"),
             "net_version": RpcResult("net_version", True, 90.0, "1"),
@@ -52,7 +53,8 @@ class RpcTests(unittest.TestCase):
         self.assertEqual(result["chain_id"], 1)
         self.assertEqual(result["block_number"], 100)
         self.assertEqual(result["gas_price_wei"], 1_000_000_000)
-        self.assertEqual(result["avg_latency_ms"], 50.0)
+        self.assertEqual(result["avg_latency_ms"], 44.29)
+        self.assertEqual(result["max_priority_fee_per_gas_wei"], 5)
         self.assertEqual(result["peer_count"], 8)
         self.assertTrue(result["chain_id_matches_expected"])
 

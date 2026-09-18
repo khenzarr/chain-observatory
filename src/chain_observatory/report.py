@@ -30,6 +30,10 @@ def _mean(values: list[float]) -> float | None:
     return round(statistics.mean(values), 2) if values else None
 
 
+def _anomaly_count(rows: list[dict[str, Any]]) -> int:
+    return sum(len(row.get("anomalies", [])) for row in rows if isinstance(row.get("anomalies"), list))
+
+
 def build_reports(observation_root: Path, reports_root: Path, metrics_root: Path = Path("metrics")) -> None:
     observations = _read_observations(observation_root)
     if not observations:
@@ -54,8 +58,8 @@ def build_reports(observation_root: Path, reports_root: Path, metrics_root: Path
             "",
             f"Observations: {len(day_items)}",
             "",
-            "| Network | RPC success | Avg latency | Avg health | Block range | Avg block time | Avg gas utilization |",
-            "|---|---:|---:|---:|---:|---:|---:|",
+            "| Network | RPC success | Avg latency | Avg health | Block range | Avg block time | Avg gas utilization | Anomalies |",
+            "|---|---:|---:|---:|---:|---:|---:|---:|",
         ]
         network_rows: dict[str, list[dict[str, Any]]] = defaultdict(list)
         for obs in day_items:
@@ -72,13 +76,14 @@ def build_reports(observation_root: Path, reports_root: Path, metrics_root: Path
             blocks = [int(r["block_number"]) for r in rows if r.get("block_number") is not None]
             block_times = [float(r["progression"]["estimated_block_time_seconds"]) for r in rows if isinstance(r.get("progression"), dict) and r["progression"].get("estimated_block_time_seconds") is not None]
             utilization = [float(r["latest_block"]["gas_utilization_pct"]) for r in rows if isinstance(r.get("latest_block"), dict) and r["latest_block"].get("gas_utilization_pct") is not None]
+            anomalies = _anomaly_count(rows)
             block_range = f"{min(blocks)} → {max(blocks)}" if blocks else "—"
             avg_latency = _mean(latencies)
             avg_health = _mean(health)
             avg_block_time = _mean(block_times)
             avg_utilization = _mean(utilization)
             lines.append(
-                f"| {name} | {success_pct}% | {_fmt(avg_latency)} ms | {_fmt(avg_health)} | {block_range} | {_fmt(avg_block_time)} s | {_fmt(avg_utilization)}% |"
+                f"| {name} | {success_pct}% | {_fmt(avg_latency)} ms | {_fmt(avg_health)} | {block_range} | {_fmt(avg_block_time)} s | {_fmt(avg_utilization)}% | {anomalies} |"
             )
             day_metric["networks"][name] = {
                 "rpc_success_pct": success_pct,
@@ -88,6 +93,7 @@ def build_reports(observation_root: Path, reports_root: Path, metrics_root: Path
                 "max_block": max(blocks) if blocks else None,
                 "avg_estimated_block_time_seconds": avg_block_time,
                 "avg_gas_utilization_pct": avg_utilization,
+                "anomaly_count": anomalies,
             }
             csv_rows.append({
                 "date": day,
@@ -98,6 +104,7 @@ def build_reports(observation_root: Path, reports_root: Path, metrics_root: Path
                 "avg_health_score": avg_health,
                 "avg_estimated_block_time_seconds": avg_block_time,
                 "avg_gas_utilization_pct": avg_utilization,
+                "anomaly_count": anomalies,
             })
 
         (daily_dir / f"{day}.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
@@ -109,17 +116,25 @@ def build_reports(observation_root: Path, reports_root: Path, metrics_root: Path
         "# Latest Network Observation",
         "",
         f"Collected: `{latest_time}`",
+        f"Networks: **{latest.get('network_count', len(latest.get('networks', [])))}** · Anomalies: **{latest.get('anomaly_count', 0)}**",
         "",
-        "| Network | Status | Health | Block | Block age | Latency | Gas | Gas use | Block time | Client |",
-        "|---|---|---:|---:|---:|---:|---:|---:|---:|---|",
+        "| Network | Status | Health | Block | Block age | Latency | Gas | Gas use | Block time | Anomalies | Client |",
+        "|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---|",
     ]
-    latest_metric: dict[str, Any] = {"captured_at_utc": latest_time, "networks": {}}
+    latest_metric: dict[str, Any] = {
+        "captured_at_utc": latest_time,
+        "network_count": latest.get("network_count"),
+        "healthy_network_count": latest.get("healthy_network_count"),
+        "anomaly_count": latest.get("anomaly_count", 0),
+        "networks": {},
+    }
     for network in latest.get("networks", []):
         status = "OK" if network.get("ok") else "FAIL"
         latest_block = network.get("latest_block") if isinstance(network.get("latest_block"), dict) else {}
         progression = network.get("progression") if isinstance(network.get("progression"), dict) else {}
+        anomalies = network.get("anomalies") if isinstance(network.get("anomalies"), list) else []
         latest_lines.append(
-            "| {name} | {status} | {health} | {block} | {age} s | {latency} ms | {gas} | {util}% | {blocktime} s | {client} |".format(
+            "| {name} | {status} | {health} | {block} | {age} s | {latency} ms | {gas} | {util}% | {blocktime} s | {anomaly_count} | {client} |".format(
                 name=network.get("name", "unknown"),
                 status=status,
                 health=_fmt(network.get("health_score")),
@@ -129,11 +144,13 @@ def build_reports(observation_root: Path, reports_root: Path, metrics_root: Path
                 gas=_fmt(network.get("gas_price_wei")),
                 util=_fmt(latest_block.get("gas_utilization_pct")),
                 blocktime=_fmt(progression.get("estimated_block_time_seconds")),
+                anomaly_count=len(anomalies),
                 client=str(network.get("client_version") or "—").replace("|", "\\|"),
             )
         )
         latest_metric["networks"][str(network.get("name"))] = {
             "ok": bool(network.get("ok")),
+            "family": network.get("family"),
             "health_score": network.get("health_score"),
             "block_number": network.get("block_number"),
             "block_age_seconds": latest_block.get("age_seconds"),
@@ -141,6 +158,8 @@ def build_reports(observation_root: Path, reports_root: Path, metrics_root: Path
             "gas_price_wei": network.get("gas_price_wei"),
             "gas_utilization_pct": latest_block.get("gas_utilization_pct"),
             "estimated_block_time_seconds": progression.get("estimated_block_time_seconds"),
+            "capabilities": network.get("capabilities", {}),
+            "anomalies": anomalies,
         }
 
     latest_lines.extend(["", "Generated automatically from the immutable raw JSON snapshots in `data/observations/`.", ""])
@@ -150,7 +169,7 @@ def build_reports(observation_root: Path, reports_root: Path, metrics_root: Path
     (metrics_root / "network-latest.json").write_text(json.dumps(latest_metric, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
     with (metrics_root / "daily-history.csv").open("w", encoding="utf-8", newline="") as handle:
-        fieldnames = ["date", "network", "observations", "rpc_success_pct", "avg_latency_ms", "avg_health_score", "avg_estimated_block_time_seconds", "avg_gas_utilization_pct"]
+        fieldnames = ["date", "network", "observations", "rpc_success_pct", "avg_latency_ms", "avg_health_score", "avg_estimated_block_time_seconds", "avg_gas_utilization_pct", "anomaly_count"]
         writer = csv.DictWriter(handle, fieldnames=fieldnames)
         writer.writeheader()
         writer.writerows(csv_rows)

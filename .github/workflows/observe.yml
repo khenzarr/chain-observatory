@@ -1,22 +1,22 @@
-name: hourly-observation
+name: quarter-hour-observation
 
 on:
   workflow_dispatch:
   schedule:
-    # Off the top of the hour to reduce scheduler congestion.
-    - cron: "23 * * * *"
+    # Four samples/hour, intentionally offset from the top of the hour.
+    - cron: "7,22,37,52 * * * *"
 
 permissions:
   contents: write
 
 concurrency:
-  group: chain-observatory-hourly
+  group: chain-observatory-quarter-hour
   cancel-in-progress: false
 
 jobs:
   observe:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 12
     steps:
       - uses: actions/checkout@v7
         with:
@@ -62,16 +62,6 @@ jobs:
           PYTHONPATH: src
         run: python scripts/build_report.py
 
-      - name: Snapshot public contribution metrics
-        if: steps.collect.outputs.has_data == 'true'
-        continue-on-error: true
-        env:
-          PYTHONPATH: src
-          PROFILE_LOGIN: khenzarr
-          PROFILE_TOKEN: ${{ secrets.PROFILE_TOKEN }}
-          GITHUB_TOKEN: ${{ github.token }}
-        run: python scripts/profile_snapshot.py
-
       - name: Commit only substantive generated data
         if: steps.collect.outputs.has_data == 'true'
         env:
@@ -101,5 +91,9 @@ jobs:
           fi
 
           stamp="$(date -u +'%Y-%m-%dT%H:%MZ')"
-          git commit -m "data(auto): record network observation ${stamp}"
-          git push
+          git commit -m "obs(auto): sample six EVM networks ${stamp}"
+
+          # A scheduled run can overlap a recently pushed observation. Rebase the
+          # generated commit on the newest main before pushing instead of forcing.
+          git pull --rebase origin main
+          git push origin HEAD:main

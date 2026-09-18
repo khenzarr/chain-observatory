@@ -4,7 +4,7 @@ import json
 import time
 import urllib.error
 import urllib.request
-from dataclasses import dataclass, asdict
+from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from typing import Any
 
@@ -31,7 +31,7 @@ def _rpc_call(url: str, method: str, params: list[Any] | None = None, timeout: f
     request = urllib.request.Request(
         url,
         data=payload,
-        headers={"Content-Type": "application/json", "User-Agent": "chain-observatory/0.2"},
+        headers={"Content-Type": "application/json", "User-Agent": "chain-observatory/0.3"},
         method="POST",
     )
     started = time.perf_counter()
@@ -73,14 +73,8 @@ def _latest_block_metrics(block: Any, now: datetime) -> dict[str, Any] | None:
         "gas_used": gas_used,
         "base_fee_per_gas_wei": parse_hex_int(block.get("baseFeePerGas")),
     }
-    if timestamp is not None:
-        result["age_seconds"] = max(0, int(now.timestamp()) - timestamp)
-    else:
-        result["age_seconds"] = None
-    if gas_limit and gas_used is not None:
-        result["gas_utilization_pct"] = round((gas_used / gas_limit) * 100, 2)
-    else:
-        result["gas_utilization_pct"] = None
+    result["age_seconds"] = max(0, int(now.timestamp()) - timestamp) if timestamp is not None else None
+    result["gas_utilization_pct"] = round((gas_used / gas_limit) * 100, 2) if gas_limit and gas_used is not None else None
     return result
 
 
@@ -142,52 +136,65 @@ def _health_score(*, success_ratio: float, latency_ms: float | None, block_age_s
 
 def probe_endpoint(url: str, timeout: float = 12.0, expected_chain_id: int | None = None) -> dict[str, Any]:
     now = datetime.now(timezone.utc)
-    methods = [
+
+    # Core calls determine endpoint health. Optional calls describe provider capability
+    # and are not allowed to make a healthy public endpoint look unhealthy simply
+    # because the provider intentionally disables node-internal methods.
+    core_methods = [
         ("eth_chainId", []),
         ("eth_blockNumber", []),
         ("eth_gasPrice", []),
         ("web3_clientVersion", []),
         ("eth_getBlockByNumber", ["latest", False]),
-        ("eth_feeHistory", ["0x5", "latest", [10, 50, 90]]),
         ("eth_syncing", []),
-        ("net_peerCount", []),
         ("net_version", []),
     ]
-    calls = [_rpc_call(url, method, params, timeout=timeout) for method, params in methods]
+    optional_methods = [
+        ("eth_feeHistory", ["0x5", "latest", [10, 50, 90]]),
+        ("eth_maxPriorityFeePerGas", []),
+        ("net_peerCount", []),
+    ]
+    calls = [_rpc_call(url, method, params, timeout=timeout) for method, params in core_methods + optional_methods]
     by_method = {item.method: item for item in calls}
-    latencies = [item.latency_ms for item in calls if item.ok]
+    core_names = {method for method, _ in core_methods}
+    core_calls = [item for item in calls if item.method in core_names]
+    core_latencies = [item.latency_ms for item in core_calls if item.ok]
 
     chain_id = parse_hex_int(by_method["eth_chainId"].result)
     block_number = parse_hex_int(by_method["eth_blockNumber"].result)
     gas_price_wei = parse_hex_int(by_method["eth_gasPrice"].result)
     latest_block = _latest_block_metrics(by_method["eth_getBlockByNumber"].result, now) if by_method["eth_getBlockByNumber"].ok else None
     fee_history = _fee_history_metrics(by_method["eth_feeHistory"].result) if by_method["eth_feeHistory"].ok else None
-    successful_calls = sum(1 for item in calls if item.ok)
-    total_calls = len(calls)
-    success_ratio = successful_calls / total_calls if total_calls else 0.0
+    successful_core_calls = sum(1 for item in core_calls if item.ok)
+    total_core_calls = len(core_calls)
+    success_ratio = successful_core_calls / total_core_calls if total_core_calls else 0.0
     chain_match = (chain_id == expected_chain_id) if chain_id is not None and expected_chain_id is not None else None
-    avg_latency = round(sum(latencies) / len(latencies), 2) if latencies else None
+    avg_latency = round(sum(core_latencies) / len(core_latencies), 2) if core_latencies else None
     block_age = latest_block.get("age_seconds") if latest_block else None
 
     syncing_value = by_method["eth_syncing"].result if by_method["eth_syncing"].ok else None
     syncing = syncing_value is not False and syncing_value is not None
 
+    capabilities = {method: bool(by_method[method].ok) for method, _ in optional_methods}
+
     return {
-        "ok": successful_calls > 0,
-        "successful_calls": successful_calls,
-        "total_calls": total_calls,
+        "ok": successful_core_calls > 0,
+        "successful_calls": successful_core_calls,
+        "total_calls": total_core_calls,
         "success_ratio": round(success_ratio, 4),
         "avg_latency_ms": avg_latency,
         "chain_id": chain_id,
         "chain_id_matches_expected": chain_match,
         "block_number": block_number,
         "gas_price_wei": gas_price_wei,
+        "max_priority_fee_per_gas_wei": parse_hex_int(by_method["eth_maxPriorityFeePerGas"].result) if by_method["eth_maxPriorityFeePerGas"].ok else None,
         "client_version": by_method["web3_clientVersion"].result if by_method["web3_clientVersion"].ok else None,
         "net_version": by_method["net_version"].result if by_method["net_version"].ok else None,
         "peer_count": parse_hex_int(by_method["net_peerCount"].result) if by_method["net_peerCount"].ok else None,
         "syncing": syncing,
         "latest_block": latest_block,
         "fee_history": fee_history,
+        "capabilities": capabilities,
         "health_score": _health_score(
             success_ratio=success_ratio,
             latency_ms=avg_latency,
