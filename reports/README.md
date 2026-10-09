@@ -1,11 +1,12 @@
 # Observatory Report Index
 
-Updated: `2026-10-08T21:34:32+00:00`
+Updated: `2026-10-09T01:23:22+00:00`
 
-Total observations: **120**
+Total observations: **121**
 
 ## Daily reports
 
+- [2026-10-09](daily/2026-10-09.md) — 1 observations
 - [2026-10-08](daily/2026-10-08.md) — 4 observations
 - [2026-10-07](daily/2026-10-07.md) — 4 observations
 - [2026-10-06](daily/2026-10-06.md) — 5 observations
