@@ -1,0 +1,1374 @@
+{
+  "anomaly_count": 1,
+  "collected_at_utc": "2026-11-01T14:27:43Z",
+  "collector_version": "0.3.0",
+  "healthy_network_count": 5,
+  "network_count": 6,
+  "networks": [
+    {
+      "anomalies": [
+        {
+          "kind": "degraded-health",
+          "severity": "medium",
+          "value": 69
+        }
+      ],
+      "avg_latency_ms": 33.87,
+      "block_number": null,
+      "calls": [
+        {
+          "error": null,
+          "latency_ms": 58.49,
+          "method": "eth_chainId",
+          "ok": true,
+          "result": "0x1"
+        },
+        {
+          "error": "{\"code\": -32046, \"message\": \"Cannot fulfill request\"}",
+          "latency_ms": 37.91,
+          "method": "eth_blockNumber",
+          "ok": false,
+          "result": null
+        },
+        {
+          "error": "{\"code\": -32046, \"message\": \"Cannot fulfill request\"}",
+          "latency_ms": 279.76,
+          "method": "eth_gasPrice",
+          "ok": false,
+          "result": null
+        },
+        {
+          "error": null,
+          "latency_ms": 28.33,
+          "method": "web3_clientVersion",
+          "ok": true,
+          "result": "cloudflare-ethereum"
+        },
+        {
+          "error": "{\"code\": -32603, \"message\": \"Internal error\"}",
+          "latency_ms": 30.06,
+          "method": "eth_getBlockByNumber",
+          "ok": false,
+          "result": null
+        },
+        {
+          "error": null,
+          "latency_ms": 23.05,
+          "method": "eth_syncing",
+          "ok": true,
+          "result": false
+        },
+        {
+          "error": null,
+          "latency_ms": 25.62,
+          "method": "net_version",
+          "ok": true,
+          "result": "1"
+        },
+        {
+          "error": "{\"code\": -32603, \"message\": \"Internal error\"}",
+          "latency_ms": 39.24,
+          "method": "eth_feeHistory",
+          "ok": false,
+          "result": null
+        },
+        {
+          "error": "{\"code\": -32601, \"message\": \"Method not found\"}",
+          "latency_ms": 24.71,
+          "method": "eth_maxPriorityFeePerGas",
+          "ok": false,
+          "result": null
+        },
+        {
+          "error": "{\"code\": -32042, \"message\": \"Method not supported\"}",
+          "latency_ms": 36.8,
+          "method": "net_peerCount",
+          "ok": false,
+          "result": null
+        }
+      ],
+      "capabilities": {
+        "eth_feeHistory": false,
+        "eth_maxPriorityFeePerGas": false,
+        "net_peerCount": false
+      },
+      "chain_id": 1,
+      "chain_id_matches_expected": true,
+      "client_version": "cloudflare-ethereum",
+      "expected_chain_id": 1,
+      "family": "ethereum",
+      "fee_history": null,
+      "gas_price_wei": null,
+      "health_score": 69,
+      "latest_block": null,
+      "max_priority_fee_per_gas_wei": null,
+      "name": "ethereum-mainnet",
+      "net_version": "1",
+      "ok": true,
+      "peer_count": null,
+      "progression": null,
+      "success_ratio": 0.5714,
+      "successful_calls": 4,
+      "syncing": false,
+      "total_calls": 7
+    },
+    {
+      "anomalies": [],
+      "avg_latency_ms": 343.14,
+      "block_number": 29001557,
+      "calls": [
+        {
+          "error": null,
+          "latency_ms": 333.96,
+          "method": "eth_chainId",
+          "ok": true,
+          "result": "0x13b2"
+        },
+        {
+          "error": null,
+          "latency_ms": 340.74,
+          "method": "eth_blockNumber",
+          "ok": true,
+          "result": "0x1ba8755"
+        },
+        {
+          "error": null,
+          "latency_ms": 338.44,
+          "method": "eth_gasPrice",
+          "ok": true,
+          "result": "0x5fed1d180"
+        },
+        {
+          "error": null,
+          "latency_ms": 384.83,
+          "method": "web3_clientVersion",
+          "ok": true,
+          "result": "reth/v2.2.0-88505c7/x86_64-unknown-linux-gnu"
+        },
+        {
+          "error": null,
+          "latency_ms": 316.02,
+          "method": "eth_getBlockByNumber",
+          "ok": true,
+          "result": {
+            "baseFeePerGas": "0x4a817c800",
+            "blobGasUsed": "0x0",
+            "difficulty": "0x0",
+            "excessBlobGas": "0x0",
+            "extraData": "0x00000004a817c800",
+            "gasLimit": "0x1c9c380",
+            "gasUsed": "0xb559",
+            "hash": "0x6a34541eb8b291da8e47ba07133fc0cfb6eae947774d10e680407b4d965405f8",
+            "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000008000000000000000000000000800000000000000000200000000000000800000000004000000000000000000000000800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000000000080000000080000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000002000000",
+            "miner": "0x47b9fb845f2c5b19f241598fe1bb7efcab704e35",
+            "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "nonce": "0x0000000000000000",
+            "number": "0x1ba8757",
+            "parentBeaconBlockRoot": "0x25536f4d96f2a99cdf3669c951158e553568af21d2ea539e959b26994c445223",
+            "parentHash": "0x25536f4d96f2a99cdf3669c951158e553568af21d2ea539e959b26994c445223",
+            "receiptsRoot": "0x41b4d777472158180fd324e5ce2001f180c4f19d239a839aaf2a9b94bf74e868",
+            "requestsHash": "0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+            "size": "0x333",
+            "stateRoot": "0x255dd70c35a23f39fecec2897548d4fdd9cbc42cebff22a9f3cd005a1694e77d",
+            "timestamp": "0x6ae74c60",
+            "transactions": [
+              "0xdb7a889284638017551a5e9c4318e48b3c0934e2f42becb950b3e4011ff78474"
+            ],
+            "transactionsRoot": "0xc7c3613ea780236d706d624b8ce3beeee2b8990be39ed35b461f4a7e17fb4028",
+            "uncles": [],
+            "withdrawals": [],
+            "withdrawalsRoot": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421"
+          }
+        },
+        {
+          "error": null,
+          "latency_ms": 347.2,
+          "method": "eth_syncing",
+          "ok": true,
+          "result": false
+        },
+        {
+          "error": null,
+          "latency_ms": 340.77,
+          "method": "net_version",
+          "ok": true,
+          "result": "5042"
+        },
+        {
+          "error": null,
+          "latency_ms": 349.13,
+          "method": "eth_feeHistory",
+          "ok": true,
+          "result": {
+            "baseFeePerBlobGas": [
+              "0x1",
+              "0x1",
+              "0x1",
+              "0x1",
+              "0x1",
+              "0x1"
+            ],
+            "baseFeePerGas": [
+              "0x4a817c800",
+              "0x4a817c800",
+              "0x4a817c800",
+              "0x4a817c800",
+              "0x4a817c800",
+              "0x4a817c800"
+            ],
+            "blobGasUsedRatio": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "gasUsedRatio": [
+              0.013011566666666667,
+              0.0178315,
+              0.0015475,
+              0.0129895,
+              0.0054444
+            ],
+            "oldestBlock": "0x1ba8755",
+            "reward": [
+              [
+                "0x156ba0980",
+                "0x4a817c800",
+                "0x4a817c800"
+              ],
+              [
+                "0x156ba0980",
+                "0x4a817c800",
+                "0x4a817c800"
+              ],
+              [
+                "0x156ba0980",
+                "0x156ba0980",
+                "0x156ba0980"
+              ],
+              [
+                "0x156ba0980",
+                "0x2540be400",
+                "0x4a817c800"
+              ],
+              [
+                "0x2540be400",
+                "0x2540be400",
+                "0x2540be400"
+              ]
+            ]
+          }
+        },
+        {
+          "error": null,
+          "latency_ms": 332.66,
+          "method": "eth_maxPriorityFeePerGas",
+          "ok": true,
+          "result": "0x156ba0980"
+        },
+        {
+          "error": null,
+          "latency_ms": 323.35,
+          "method": "net_peerCount",
+          "ok": true,
+          "result": "0xb"
+        }
+      ],
+      "capabilities": {
+        "eth_feeHistory": true,
+        "eth_maxPriorityFeePerGas": true,
+        "net_peerCount": true
+      },
+      "chain_id": 5042,
+      "chain_id_matches_expected": true,
+      "client_version": "reth/v2.2.0-88505c7/x86_64-unknown-linux-gnu",
+      "expected_chain_id": 5042,
+      "family": "arc",
+      "fee_history": {
+        "base_fee_max_wei": 20000000000,
+        "base_fee_min_wei": 20000000000,
+        "gas_used_ratio_avg": 0.0102,
+        "oldest_block": 29001557,
+        "priority_fee_p50_avg_wei": 13150000000
+      },
+      "gas_price_wei": 25750000000,
+      "health_score": 95,
+      "latest_block": {
+        "age_seconds": 0,
+        "base_fee_per_gas_wei": 20000000000,
+        "gas_limit": 30000000,
+        "gas_used": 46425,
+        "gas_utilization_pct": 0.15,
+        "hash": "0x6a34541eb8b291da8e47ba07133fc0cfb6eae947774d10e680407b4d965405f8",
+        "number": 29001559,
+        "timestamp": 1793543264,
+        "transaction_count": 1
+      },
+      "max_priority_fee_per_gas_wei": 5750000000,
+      "name": "arc-mainnet",
+      "net_version": "5042",
+      "ok": true,
+      "peer_count": 11,
+      "progression": {
+        "blocks_advanced": 50295,
+        "elapsed_seconds": 25501.0,
+        "estimated_block_time_seconds": 0.507,
+        "previous_block": 28951262
+      },
+      "success_ratio": 1.0,
+      "successful_calls": 7,
+      "syncing": false,
+      "total_calls": 7
+    },
+    {
+      "anomalies": [],
+      "avg_latency_ms": 43.16,
+      "block_number": 53376960,
+      "calls": [
+        {
+          "error": null,
+          "latency_ms": 66.42,
+          "method": "eth_chainId",
+          "ok": true,
+          "result": "0x2105"
+        },
+        {
+          "error": null,
+          "latency_ms": 38.89,
+          "method": "eth_blockNumber",
+          "ok": true,
+          "result": "0x32e77c0"
+        },
+        {
+          "error": null,
+          "latency_ms": 37.47,
+          "method": "eth_gasPrice",
+          "ok": true,
+          "result": "0x5b8d80"
+        },
+        {
+          "error": null,
+          "latency_ms": 42.79,
+          "method": "web3_clientVersion",
+          "ok": true,
+          "result": "reth/v2.5.2-7134be3/x86_64-unknown-linux-gnu/base/v1.5.0"
+        },
+        {
+          "error": null,
+          "latency_ms": 37.23,
+          "method": "eth_getBlockByNumber",
+          "ok": true,
+          "result": {
+            "baseFeePerGas": "0x4c4b40",
+            "blobGasUsed": "0x713724",
+            "difficulty": "0x0",
+            "excessBlobGas": "0x0",
+            "extraData": "0x01000000640000000500000000004c4b40",
+            "gasLimit": "0x17d78400",
+            "gasUsed": "0x3079f36",
+            "hash": "0x4c64a1551a6eeef456bc7cf822aa4af9e7b423487d8353aeeccab24ab2c08f2c",
+            "logsBloom": "0xfeaffff7d7fffeebfbfedcefdbfff4767fffbdebffecfb4eef77ffd3ffeeede7ff6ffffdd977fffbf7fefff9fdfff97f6fbdfdffff7dffefbbfffecf9f7d7aff6f72fefeedffadfbff96fd69ff9effffffeffff7dbff5bfbff3dfffffcffa6bf2f9fdfffdb7bffffbfafff2dff7ffffdbfc5fffff37ffff693ffdffff9fbeffadddffffcfff6efbfffbffd9fffffff38f77fdf7feebfffeff75f15f5fff5199b77efdfbffbffffddd7fb9dff3ff9f71ffff5ffbfbff9fedfdfbfd36febff6f97eff6bffffddffdfdfff7ff7f76effef3c9fb96f739eeffbbf6efd557bffff76f6bf2fd57b7fed70daf7bbffbffcffefdfffcfff7efff3defdafbbffff87fbfcf",
+            "miner": "0x4200000000000000000000000000000000000011",
+            "mixHash": "0xe5fdf382fb77dbc1b68f34bc055cc97f6e62a964eebcf75dd93099b6192c731a",
+            "nonce": "0x0000000000000000",
+            "number": "0x32e77c0",
+            "parentBeaconBlockRoot": "0x3d4c395fc399c859bcd764f4e726f116c12ef379dfa6de7f0d6b9ba7fe443b18",
+            "parentHash": "0x359221c5adcf97c08421f964c1639b57fcb101a48881349029a3ee0aa23012b3",
+            "receiptsRoot": "0x8844fc6cf1ed9fcc6408f3ea6cf725f7a274145efc5fd6199e6ec92b9bf33e50",
+            "requestsHash": "0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+            "size": "0x1fc72",
+            "stateRoot": "0x59a3b64d61d465e55501646316f9553ce5b700e2ee8a5d7fbcd4f6a4a1a43afb",
+            "timestamp": "0x6ae74c63",
+            "transactions": [
+              "0x922e2b3d9eb3c386f8cd5f3f4f5d545abab3202d84632ea4377973285a5d8253",
+              "0x6942b6d6138a98b38313f6198779c26c1ef9adbd87671b2d2078bdd106fc215e",
+              "0x255f2aee2421cf0cf7b5c4ed2fe6201d9571cb12dcedbd19df128fa634df4b86",
+              "0x56a6d1c170aa509fdd502a6a087d22a315223d143e8448bf116c75b85d4ff379",
+              "0xe02b76d83db8906ee055c5c4d3fee48103c044656e03c6e938291106a6042d79",
+              "0x1e92279289086481428ff49305d97c25fbd7692e753083f44445f4094e095082",
+              "0x4f6721d35574b9ad0d6cdf756dfbc92f7e3ad901957338fbb05792f56213534e",
+              "0x465f777c987ee06150154dc0e1628dcf14d5e93d5cbc4b2ae489fa2a174fbe0d",
+              "0xb73e3bf5462c4cd2e0b9b78cec874763f3f3c977160986afef78a65d75c0c51b",
+              "0x3405096a18502c561aacd02f86b99e52d15a83bff76a385118574ba4a910a74f",
+              "0x520aaa3c89dea00352616abaf782a4ef667d296e5cc18dd020548651336aafa6",
+              "0x4df48857bda8773994c0ec49cb4c3e0049b0ff61d67b2f170fdd11253a244340",
+              "0x3fc4d5f4c4a0eebf6d387ed3e9aa7c0ce0a6be8358dc2b192f93b9ad737ce397",
+              "0x11c7e242a2d65cf76c9174e27859e0112f16e49b78b640a46007a1fdd8e6e267",
+              "0x8c8c570f341a4dfcc3cb197c867a2b53fe195d3dcd1a0d5ff77179d7e4ce8b63",
+              "0x77d87b382f9fb28bceebcd0d1fafc719e63c8932fc116e89c0d7253c02f47011",
+              "0xc6213a35fa6b2c3996d291e601b5f4ee9a73ab742795ea4fcae1167ffd675e19",
+              "0xcadae63ac11cbbbe108a9311a47ebd0c451a0d75a1128f35b85c9b70df50c8bb",
+              "0x6ecc2d614f0487d1d3b91950f8c1240dca74935aaf0acb22278bf8cc6372e6d8",
+              "0x74c07fd2a4db354a946752b149c012c1c4f26b91fba0c35c01d1c9dc80055a29",
+              "0x107b8b517b3e5b41dd2278ac27caa2514798a40368f6d034e8087d4ac1a0451b",
+              "0xa55db33cc27875c94fe9200281ceac513df7327791feb253d8b99e7145a41740",
+              "0x9dec6f3e626e9cde6bed68278d749ded19a0610f57b8c9403cf032d68b4fe6ef",
+              "0xf66c25194bb6caf1257fc2689c7fe4af209ed76bb26ccefc388d231d497b1436",
+              "0x662215e7f046ffc2434e3621e436a7e84301fbeb7dd473dc0b08a275b9300f5d",
+              "0x1aec6889caed008cdcf0017e3828df451b2d235b0c8b57bd143c9e66ddf2a92b",
+              "0xc3b70d589fadf6c7ab57e461d2a8c80dd9110caf2a6bba71dd8b9c39a3f629e1",
+              "0x8b2806e71dd9dbe34c8b7db5fec1318456df4b39ccb3f36add1f39974d42a7be",
+              "0x8d65a5ad44fe2f8e64b3acdee56af9b0004c4300b7b8918034ccd518068d50f2",
+              "0x2a2bfa66328762c3016039010107cd3868723cdbe311ee8a287394f2bf8bad71",
+              "0xaa6e097d5692275a9ab3e71d986d8174a2a51cfa704624661e23eb15e5d78c16",
+              "0xf48ff65408e40d6e51d5e280097edaf19408723cdfe28c3333d509f6660c3537",
+              "0xfcab925979266be07f23721cf5cfd90f6abff30a1694e326332499439264252d",
+              "0x9c128b7b2e7e8f6356571dcd770f4b09f6a8b140424113f671a11a436d55d885",
+              "0x9cd9cc146cd8e647f19aeecbbb9b18fe4822ba62f06f377caa0b4270e888bbc8",
+              "0xe19ae9af4e37bbaa751757e342de38eb8253590d9e354698a5312abbeef313b2",
+              "0xb2ecd61e25719dfd99da1b88b259a331f04ca06e8921d7d3a80f6bd6df281dfb",
+              "0x490ebf1619da5a36537a142aeb6eb6aada8aefa6748166e7ce49b3342ddb7560",
+              "0x4a7e31b37b199e3a2bb307e246359b91028590d328aeb2108c1208ecc17b54ab",
+              "0x631da01cb138a7c0aefc46428dc2a0aca328fdd88195a1369dfbd0106951eb2e",
+              "0x614240e87ae62b41c4813d06f331e3557a01e411afd844dbd9123f6476b15cf3",
+              "0x367b2db576098891a21d8d7a579164426ad1bff30183007c415b813b2a864079",
+              "0x513f9cf229438fd58c5b7435f91b9e3669025d99915f22484b45ab95889e0206",
+              "0x089114c3b31f6b24c33d46ce4e4636604c04a67f80640b3f4e749088c47aa850",
+              "0x1e13b505da49bbc20d88fe3a0e226740b5e30b8e906ec02afe3873a5ceb3a495",
+              "0xa59db09c1fc619b072d5e451ada4f347d583c4371d725683adc72c2c52141a54",
+              "0x7a14fc982f34385356ba8bc72a28e673e61a79b3a23624eb1dfb32de7d09dc9f",
+              "0xa3f35fa21bb824232f676a91782f13acce81f08d97a6f534310932b08b3b792a",
+              "0xc03569040813fd5fd3d7f8881d0ddbf10a4a41125306600fcee08e7f1efb0d5a",
+              "0x718cd0b310c221dea67cc7f09ae7bef4ed0ece2a3dc85b777d273336ed158809",
+              "0xf85da64e9afd350c0ef7ec318a028219ef07ca340b260b2cb3d3098db362eb47",
+              "0x9474cc31e1250731544fdc1c3857a2b6bb20171b16dacb59bb08b89f94a9afc5",
+              "0x45512a174ef69ac8a4920ee9cf12d60a8a42800b13436100f88d7037dafed75a",
+              "0x58ef5a410bdaae9ce03736c48371066e70205711528e8a864389df2522f95628",
+              "0x33fed879bd1a986f625a316af99d3920f8980214d0a365a435d83e98d5f8591f",
+              "0x9a3cab8d88b4a69db74f11f5a7d76d8fabb8989a568f054eab6e5f4bd92da9b8",
+              "0xd6d0f3800b772337f084dafd1d1e54e3a51aa062441c07a537dc90908ddd83b7",
+              "0x65f30000af1997503f9dd34dee19f3549358a34d9fec21c10fb613685203c7a7",
+              "0x0704cdd20440e8f23868f81dd45da7a94779abc1b342f19c5929afbe45d9cb57",
+              "0x890c8f4620e8966ecd12f410b33f55119d6907f5b74f2bd04dca8c06b27b5a1d",
+              "0x0eb29686106817dac37a5bdfbab91325d981104d6869e9649ec451ce22181ad0",
+              "0x42e90d523396bdf75006325c91297434ac98f9ab580887725ae2ab78c11c7896",
+              "0x6d1aab574182ce52695a46d5c6894214c34f3f226a5c0e5fdc323e8e5e5625f2",
+              "0xaf6e92c3af6717735fb79a6e46572e47b5e6a514017aa7008c7ba9562b922bf7",
+              "0x011217b5cb152c10427ecb52318962b714de01b06de056f1bfcae4e334e2878b",
+              "0x3c7b8216916b415ad4565278c2c218708ff63bf97db87f3ad042153a4a8bec56",
+              "0x6f2001f4d9cf04693abb0510f328171919817ad9b767552f51be7852004adf44",
+              "0x17c376680722f45ed09387f0d3fd78e676e19eee646259959c96f867ed601522",
+              "0x40e85fd7b84ee520c7bec51eb12542ede20853d11b7b73b42943dcfa8b8c9210",
+              "0x5aac375ab2f81e2daa3298d4470f8013b7185246284f99b8e89f16c63443ab99",
+              "0x16f9802c2d8534d6dd9e5f7b7bd489cd761988046f296c97f4f83b37d8876da5",
+              "0x5177ab5c4d268dc2a3270505c3f2d163684c5e17d90118b69bccb9f39d8480c8",
+              "0xdc41a89b014037ecc6633047a2745e40c8bf6326473dc51ec67328cde634a7a4",
+              "0xc4c3623e4bdfb262453c2a18eb04c21b4d065d6f744f6ecaffa2d3889057f029",
+              "0x8ffc119ca634f4e51a1f1fb164ce955553f7b498e09263ff470e534073a1a65f",
+              "0x14e7637c1fa8112358017837cdc5986ae8e1e12106025db8e17eb506cc8b6503",
+              "0xf92190dd4b5852c4b9a96d0fd8804d1434526bdfa07d3887934cf3e2dbd2fb64",
+              "0xf1b5899ed4fb886366e947ee2512914d34697bc41cc651a4d871f0c03834e809",
+              "0xd2100aa170468adca9d42914b9a7cc641cc410ca1447a5e0a5a40126167f5f0f",
+              "0x615f1e5f14e4e545d39799cdee65c05a3d7edbb59231730ba27897acf0149e63",
+              "0xd63020e170f7c9e9d28b96558cb0696e7b19ec858d9fc82f92674487beb3a5c4",
+              "0xeea20e83f0a3bc07b0964a410dc4da72112e6dc4b5f9e8fbed150cdd82dc13e4",
+              "0xf8d9bece5d3e7d50b44e28765b503e20b090ac0f230afb7e95b1b379e4a2bdbc",
+              "0xd74793d4a3d02b4975fcffd57e093dd4399b96fc030b3060dbf25a8ceda95a98",
+              "0x35b039ee6583dafa20c680e8fc2f49e45509529e838a476577f7a04ddd40a35d",
+              "0xe35b9271c746ccad63a7fef2cdfe061de35c271cea868645dc5ff978d7e9e9c5",
+              "0x9b471301fcd9b3bb5a77c860e86ebad30d810c0f43b85100f89ce835e6c19565",
+              "0x4a3e8060b4de41ba669e82101b9d25e2922e6aaf63e1e79e10f684a5ea4c02ec",
+              "0xd7f71075b8d8fe27147b725489a4e6acde967573dd779e84387c5c780a5f55fc",
+              "0x0855a34caf0ddada6ba4efc4ee3c4921f7614126d80a6ee443110d3b28662876",
+              "0x892ad78ff030824f6f30e6cffe7205d28cbb2302b7522ba5e1c0421695724fb3",
+              "0x10b6db499e85686bf8a9526a166973c41dedb94924f3d205f8f183510bdc0a0c",
+              "0x39e47ce3e74ba9b00fb9b35877b29e71991ea6581b82025977af93fe60abfd2f",
+              "0x78e7c7681a81363621ec95e33594438fa74a7f12b93eb6e01afd1224e3ce8bdd",
+              "0x6cf5977cf9cf55d84da7346c438595c4fca3c95761d260b0ff26751f0526e2d8",
+              "0x51418294c11ce47201b84473e00a2106c1ca76fd3b1e659675e7afb6a81b25d3",
+              "0x86e43aa36b4bce13948c7a3cb255158a4004896f63d88f02807fa78401c50e2f",
+              "0x0fb8467d7317fd6c0f6a3b108ddb5016f52a60e0a24465534e3468d00485e732",
+              "0x79b38fb20c2500c1e4eaa1fd966359da5ed5f507a2de348ade6c3db39d2eb186",
+              "0x721ed82498a32cf4f4d02cf1425d054cf22437f26f6eeadccfdc7a7e62680a68",
+              "0xc7207e3659d0a769b34680c28798fa0ee55b52a488621d93da5ae41b016ff069",
+              "0x76f5e6da6bd9623d5d3c02ae542bd5547b05d8ecf140245fd44b9900a44d1107",
+              "0x960d64b141f24aac975a67565deca6c4bd7d639ad720febc9f23f2c3e6c41ffa",
+              "0xb06f17327ac6169234b777212ba9b8e4bb3f675c9b405b92b969f110a97894fd",
+              "0x5b893cb2902db9303806724cf2203b9871ab92837c84728996fc0c7a0f9ebacd",
+              "0xdd28a3d9f607bdc1eb62424324d5d4872302b1a7e0d3706c788744893d808549",
+              "0xb331b4b48f1feb17ef4835204211dc90f1ea643e76a591bc11f74c24eabb28b0",
+              "0x86cf2262d3a144f6eca51d8116c76c4c973f9c5a6a48e38fc254582a0e2378ee",
+              "0xc6b9d391389f36d3661a68d096c62ac853823457377959a54a954f5095fa4638",
+              "0xb79d5efd43f92bdc326ea66c75b66a2188565f02aa624637378f3ea8dd899494",
+              "0x726948433aac1aafde6500e4e0a4d56f99f3296561cd4278fa74e46b7131f418",
+              "0xb0539f36cef18d09de73dfc744f050750d2552785872978c12633bb80c989b60",
+              "0x77a95786c80552781c9931409afc9109d180475dcb6f3bf0e6c433c2785e718d",
+              "0x9a725b9f7b4eda10d002f2ff3fa80f37007648908521fd099ee90f1c915b870b",
+              "0x4d0e24b681b33f647797c4790a0f77ab089f27e06b444ba11959ded3869aac4a",
+              "0x65f60724e42eb4c918f6b9dca018facbd2f2c1761a42b801e99956b55766656c",
+              "0x5e5a637cb2fcd2c944f0ac19d21c1aebf43fd12784af8c0f66adb2281011ab7e",
+              "0xe3eebf446c1cfae168ceb6bd077f9d5d3f44c197acc0250c364376fc5b172186",
+              "0x6d4b114a1f8a639994d813e4e8c77346ec6a73a0543525108002cd885294ea39",
+              "0x4602084c7fcfab04579386a7331e57d81e60d5037a736d4a77d9732fe720aff4",
+              "0x359ff83db70c10b494e97debdb5759607bdee1c9c44d8cfe101b58e1821780c9",
+              "0xea9ac71b2de5b85631196e7bcfba321fd49dc54033084a0cda8f8c65b3c43e95",
+              "0x20024243b51795bcacb6fabe1a31f5d0348efefcc126a333594fefe9ef2d1d2e",
+              "0x2254bdeb3f215e94d31ee5c0539e0542ca6742bdb21e4284808da84f7b6dbf3c",
+              "0x70c203d0a37dbef79ead045407cacbe36089d857655faa174554c2d8bfebe774",
+              "0xf6b6a8b6e876989f31b4082480b4af25a6e8d281ca1673a5edb8a9a53c20647d",
+              "0x41b4e3550e27eaddcd712db23308935508e9474e8cd177cd0facf7e297f8b91c",
+              "0x533c8d726ceaacd2cd86ccc00dbf5782ae51b2dfb921f6c27ba71787b1cd0048",
+              "0x45ac80c535f2be425057942c34c2f0f928c7600be52669f235fd704bb6e79b8b",
+              "0x75f251d0b657067b27f5e7e2a62708b0349304b4fdb40c21115f29f038b2387d",
+              "0x4deaa4cc85008bc3711f5ea6e87ba9b64e0b9e26ab3c783e7c7449265eb94ec4",
+              "0x22ec434973444459fd60dfed90345ff4542850b2a4687eb3809793357923e90e",
+              "0xd19ad2e1e48eb78d538bf5358323ffe4ee2de684c311c6f5385188ed70d85bf6",
+              "0x947348264697cd1bc4af5d2e24753c6bacc0a9bb33821ad7cbb75f4c9b372cf1",
+              "0xa80870fbc7c3bfa15cf2d49008d0b59314de49aed6c3074c20d903eae01eb0d2",
+              "0x7009da8d5af5e85956cb421bf0d695a0791060505c9ce6d97bb4e69a298005c6",
+              "0xa3e6f1d9b6799e97977c6686059801305d0e978b2bf414ad407d812517e4054d",
+              "0x899ff70072aaf9a86cc9dc2ef03a6a85d66ce0ab712c8c66d6c09a63746a559e",
+              "0x2013965958ab30556a558c073c560f66ef9ec7da0c4b0e7764526c525c58e936",
+              "0x2bc1ac2828ca11ce2384a059adec1b270266630c26f1e13f8e070fa6d2c4d568",
+              "0xbfb4423f514b1566ce4edd89f7a75f1681c2c3a9447491e838d578d29a56b54d",
+              "0x38d34f764626be2f12548d42b1cd4467190e11583ad23bbf4aec8ba3068787e8",
+              "0x966018b91f0142ad6cf053940a17799f86c06a35fbb0b7d859d4a3dd962bffbc"
+            ],
+            "transactionsRoot": "0x0a7cdb23a7db31142d361e44a4f6f8e05e1f7dae22a3607454fc7f58aa6ba70f",
+            "uncles": [],
+            "withdrawals": [],
+            "withdrawalsRoot": "0x2b99448c940cbf4becd59c9c2c5abd201846b3c91ac3d66e889fae95dd9639b5"
+          }
+        },
+        {
+          "error": "HTTPError: HTTP Error 401: Unauthorized",
+          "latency_ms": 40.44,
+          "method": "eth_syncing",
+          "ok": false,
+          "result": null
+        },
+        {
+          "error": null,
+          "latency_ms": 36.16,
+          "method": "net_version",
+          "ok": true,
+          "result": "8453"
+        },
+        {
+          "error": null,
+          "latency_ms": 35.5,
+          "method": "eth_feeHistory",
+          "ok": true,
+          "result": {
+            "baseFeePerBlobGas": [
+              "0x1",
+              "0x1",
+              "0x1",
+              "0x1",
+              "0x1",
+              "0x1"
+            ],
+            "baseFeePerGas": [
+              "0x4c4b40",
+              "0x4c4b40",
+              "0x4c4b40",
+              "0x4c4b40",
+              "0x4c4b40",
+              "0x4c4b40"
+            ],
+            "blobGasUsedRatio": [
+              0.0,
+              0.0,
+              0.0,
+              0.0,
+              0.0
+            ],
+            "gasUsedRatio": [
+              0.083563185,
+              0.059605435,
+              0.0494526425,
+              0.1201331225,
+              0.127077895
+            ],
+            "oldestBlock": "0x32e77bc",
+            "reward": [
+              [
+                "0x1adb0",
+                "0xf4240",
+                "0x2191c0"
+              ],
+              [
+                "0x2710",
+                "0xf4240",
+                "0x5ba498"
+              ],
+              [
+                "0x5a58e",
+                "0x118c30",
+                "0xbf3161"
+              ],
+              [
+                "0x30d40",
+                "0x153e16",
+                "0x1045a69"
+              ],
+              [
+                "0x0",
+                "0x30d40",
+                "0x551a28"
+              ]
+            ]
+          }
+        },
+        {
+          "error": null,
+          "latency_ms": 43.34,
+          "method": "eth_maxPriorityFeePerGas",
+          "ok": true,
+          "result": "0xf4240"
+        },
+        {
+          "error": "HTTPError: HTTP Error 401: Unauthorized",
+          "latency_ms": 36.46,
+          "method": "net_peerCount",
+          "ok": false,
+          "result": null
+        }
+      ],
+      "capabilities": {
+        "eth_feeHistory": true,
+        "eth_maxPriorityFeePerGas": true,
+        "net_peerCount": false
+      },
+      "chain_id": 8453,
+      "chain_id_matches_expected": true,
+      "client_version": "reth/v2.5.2-7134be3/x86_64-unknown-linux-gnu/base/v1.5.0",
+      "expected_chain_id": 8453,
+      "family": "op-stack",
+      "fee_history": {
+        "base_fee_max_wei": 5000000,
+        "base_fee_min_wei": 5000000,
+        "gas_used_ratio_avg": 0.088,
+        "oldest_block": 53376956,
+        "priority_fee_p50_avg_wei": 948430
+      },
+      "gas_price_wei": 6000000,
+      "health_score": 93,
+      "latest_block": {
+        "age_seconds": 0,
+        "base_fee_per_gas_wei": 5000000,
+        "gas_limit": 400000000,
+        "gas_used": 50831158,
+        "gas_utilization_pct": 12.71,
+        "hash": "0x4c64a1551a6eeef456bc7cf822aa4af9e7b423487d8353aeeccab24ab2c08f2c",
+        "number": 53376960,
+        "timestamp": 1793543267,
+        "transaction_count": 143
+      },
+      "max_priority_fee_per_gas_wei": 1000000,
+      "name": "base-mainnet",
+      "net_version": "8453",
+      "ok": true,
+      "peer_count": null,
+      "progression": {
+        "blocks_advanced": 12750,
+        "elapsed_seconds": 25501.0,
+        "estimated_block_time_seconds": 2.0,
+        "previous_block": 53364210
+      },
+      "success_ratio": 0.8571,
+      "successful_calls": 6,
+      "syncing": false,
+      "total_calls": 7
+    },
+    {
+      "anomalies": [],
+      "avg_latency_ms": 190.13,
+      "block_number": 158972245,
+      "calls": [
+        {
+          "error": null,
+          "latency_ms": 195.56,
+          "method": "eth_chainId",
+          "ok": true,
+          "result": "0xa"
+        },
+        {
+          "error": null,
+          "latency_ms": 171.44,
+          "method": "eth_blockNumber",
+          "ok": true,
+          "result": "0x979b955"
+        },
+        {
+          "error": null,
+          "latency_ms": 207.22,
+          "method": "eth_gasPrice",
+          "ok": true,
+          "result": "0xf43a5"
+        },
+        {
+          "error": null,
+          "latency_ms": 193.85,
+          "method": "web3_clientVersion",
+          "ok": true,
+          "result": "op-reth/v2.8.0-d6620202/x86_64-linux"
+        },
+        {
+          "error": null,
+          "latency_ms": 204.21,
+          "method": "eth_getBlockByNumber",
+          "ok": true,
+          "result": {
+            "baseFeePerGas": "0x165",
+            "blobGasUsed": "0xc0c470",
+            "difficulty": "0x0",
+            "excessBlobGas": "0x0",
+            "extraData": "0x01000000fa000000020000000000000000",
+            "gasLimit": "0x2625a00",
+            "gasUsed": "0x11e5a2d",
+            "hash": "0xee4132e3dc4f152df58d6a17eaee22f534ab5d4b86d43f152b53d2859869f080",
+            "logsBloom": "0x426e6090200c000880001020001806200001280840000000054c000020450600ac0030080414102208204a102402928000008408049020041402044020200241000210008004400c300024280010042000e0080904440032200204008132001311004000820600c28281000006004900000100000008440000004114000874301000822200820400190002190100020800015001082001083000005023000010028800000480020020002444200220004000028010010000000208008000c480010800020800002080681654401000000090028004000b0400010402000720882610000801100202c040c0400000011084020242000018c000068a0604020500",
+            "miner": "0x4200000000000000000000000000000000000011",
+            "mixHash": "0xa85c72d216ea00b1c9e9397576922204f2b5815701ecbd74d3fb8eca1c5b3beb",
+            "nonce": "0x0000000000000000",
+            "number": "0x979b955",
+            "parentBeaconBlockRoot": "0xd107fdfd3cc4e64c779beddd45401c9c579e41b67ecbf997c6779ec7908deecc",
+            "parentHash": "0x69606dfdfe15bec1c01ec6d230558e295c017e0432a4f14a7b9402e3c11e348e",
+            "receiptsRoot": "0x266f95ebb09f68b8341a5f6481c9e806841527602da77723c53560d27ba6de0e",
+            "requestsHash": "0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+            "size": "0xfccd",
+            "stateRoot": "0x18fce3db4a031592e1ccefeb04593f65f7fecf5e5c58d8e275dad3a2c976ef44",
+            "timestamp": "0x6ae74c63",
+            "transactions": [
+              "0x9dd532b020c91112f63dbbe0789976f62f660615d1262cf4f85f161e4f71cc5a",
+              "0x4396d2ebec776b975bfa27aa5f2a052c8ad3ef7b95851ab2214aafd19025f1e0",
+              "0x822e7fca14e8f8bd6abf7b822801e636df984b56d3c1e1dda2dbc6245b45a57e",
+              "0x704a6e8d3dd7dbb938ed6ef7ed530d23b134bae8e1e01eebc68514e634cc24be",
+              "0xdc12def1671b6a92b85fd3cd076177129c287d3c5bdc7f34fb4e7f08d1598b14",
+              "0x133dd2d4bf785d7e338b3733fdf4cbfe4b0b2613450f04210715a62623e1aa09",
+              "0x4829e44594014bb70d8014e7f97b3380b5966c3aa0206be7620d71ab5a66da38",
+              "0x866b80d8d2d5168d909a05b061e4097cfa59a43ec30cb44af86e653c01b2766b",
+              "0x3796f278ed9e7cd80d04c38fb2f202e704837c8dfac81cc34619ec97766b640d",
+              "0xbb3d6540e94ce207d4eddca570fecd29b61acac2b4af57777095ba9a97aedf15",
+              "0xe87fb2912ddefc02abda45ba542212896f5b5b2f4f8e6b348cb5f352aa704417",
+              "0x1c5c42793bba423f652af9cee49a8c5cae55f19164e93cb785e1876fbe1771a1",
+              "0x888a61b6d737c6b787a3d9707f5d754aa8633e7244c8ab902c0955ee2efa4a2c",
+              "0x3afdc6fa960467498402b11c0ecd5bb24a0bdfbf19d3a7452b2cf737f7a5e8da",
+              "0xec2c986320735952d7511541c5eb5bd1017ce9592c0e8c8d58ac1259b16a05e5",
+              "0x745a9486f41eedf6b3a76df9cfdd74cba741a5f4b11ee93e07415ec3f28f89e7",
+              "0x1e47e50f58718945ff3bd49baa81d38554fc436775a7d4ddfab305bc00de45b1",
+              "0x98b572380721a9fc5173cddfc5e21c1b75e321f1872019d61b470258718fea11",
+              "0xeb6ec453b3d8935d93656c72ad17f4b868ec6eecda674d6007bbc0b3955b2706",
+              "0xbae72270423023f61d36f819a7540868623542af3bee35e7d62e32298253cde0",
+              "0xcde60a39cd92925c5e76a1ac7926a95857c717120d551fb850954b9df2d4ae07",
+              "0x9efb31eae72f0a273e93fdae1267ab3513c37eadfa92490b5ac409357e183785",
+              "0xbf30ee239cf0bc5329c09e2e82a111cf1cc16c6664112600dfdcdaef14b40c09",
+              "0xcd933b6b2aab435c913eae45d9e018cdd4dbfbcfe9076ca8eb95841242bbd57f",
+              "0x0bdb295a1e28c9ea1e15c66a30e086fc728930abadc677be5558b8949cfc356b",
+              "0x96344ba69c2dc003d6467e54630b4e7a07ba3f2a6d2ab2f76f9f567de3e80060",
+              "0xf30e68481f3abccf6a5630cea04ce1ce7b2c0e88c3ebd3cebfbbbbf34be327ca",
+              "0x7540fe30e6ec2eb9b6afd1e3c42d0039b496272643389682a38c1fd341dc3ecd",
+              "0x9dba0dbc350f8648c80364e8bc0193992490a554f768a639f8d8d88a118fcb74",
+              "0xafe5f954ec0a63cfb72c7d8b8ccd4d5b044ebe142fb19d50a4943d832ce5d07f",
+              "0x1282ea9fa874b49e0c97bd7f861161ae5e2226f79c450fad661661606be1f46e",
+              "0x197b198aa024c565f2ed41a00261db7b9e16573df76ffa526829a9feae857c8f",
+              "0xfd0f9bd1e13b00037bad6499a618b0a8867f4238261eb49163f578d69f42123b",
+              "0xc9894a00e501a5a57744668d861eecca8171de7d848f28b4583f92bfad2855c2",
+              "0x9908cb0404c51e7bea1117534cceff9b60e900ff1bb979a08ac0247df6bbfdc8",
+              "0x73f99ac8079ed6eca1e81282c19fbbe068e151c4aaabab2931e99910c5243c12",
+              "0xadba74369db707a72e7e3b941633cb721fc5487adce4bc558d504d97b6047d97",
+              "0x1850b1c689837b79956822ab7efc3790ab63d8db4a4bf42db3f0c4893d1ea138",
+              "0xe7fab950f210e31636ad7222a16d21c926661535e5af27a4cf5a3ddb517f733b",
+              "0x97f2213544a6c6646f2872816e97d747cf0ba4eda2caf3c7e4dac7f2c8935b1e",
+              "0xd26f077fc5fe4ef7f93cb86840b6bfb0a7f43eedc9bee71e22b5f2235d69e183",
+              "0x3be77a14d487617c074256e38c79c6c136c590dec098885ff0bd345c13140930",
+              "0xc6dac86656a6216ff5cc149d5527b109081b3ac9d07720dc074087333b0f2f9d",
+              "0xb5607bb9969f51647e5902bf3b85e0a6f746951791d329f5b55e90f288b07d9a",
+              "0xf15e2bab32b0e83459aeff7768f5cc226cd0ec08aba11d61b2e52f8ad19c9a04",
+              "0xe3ca1619b30dee749b257a62f2b7a25c5771b1d073b8674c7b8e702b4e22d662",
+              "0x168d4fc222ce95d08519af172e6f2203d8b1c2442d3a15a7b5d176b2d19e59d3",
+              "0x721788c88b02372a4e271f02c972cc629dd78f4568717855d44217276866bf3b",
+              "0x9d6582195cf17d0d6d2335ac915957c40e8e04e7b3d36615c248b24fa55e1473",
+              "0xa1e5241ded82169b498461a0b23355a0be97be7d1c6b495bbbc5d5ab84937d02",
+              "0x7e27dbe339f64d086974b362a6c2971ffb0e3bc228f1891bd6643b6d841821da",
+              "0x6a8f673380f5ef02e35698df5fca91ca698b9dcf85a81fc149d2d0abc4fd95dd",
+              "0xb28114f6cd3e35bc15754fd1add55758226b4f2fc99da1e93b60a740fb3cfcfd",
+              "0x9144ab15b32d8887e7ebed50734880cfa23615e92b9fb0f8d6d813c2ab49859e",
+              "0x0df1bd34416f53a5ed3ed1f218e83bd77473ee0240d7038d46662f625f044a37",
+              "0xca5be985688cd86d8381923e58df17c62fb00c8f53c4317e591b91c822de9076",
+              "0x9a035bc2d4a7904fb2215e522c8b281e20b43431658490adfc1d2cf2dbec93d0",
+              "0xfb2855f5a1b86b3b27f121e544ec493b50248b36e4e46f112e3a47aabf2d7b88",
+              "0x11394983246c18e67193204ed3a65844f1e615e6cbf88b7c39d12d3cdbe977c8",
+              "0x2618b81d030e24d0e4d9a4c8c9a877c4fa664372b58292479c4e7c08e53c1966",
+              "0xa8a0b2e33164a682a808b342cd40f500fc5fc9e8f865b8ad62fdbecd823243b3",
+              "0xf35d86729dc71da536614173fa31c623e54f38feac74e88447073b65801825bf",
+              "0x2aaa2d2762e9b9a298c2cf218ad63240bee385e0d1b4bd57a3f2592bc192f8b9",
+              "0xa08d00542584587d11838401a24d520d43a69e11cd911003f68aa924cdf1de7b",
+              "0x3bb5cf385b3cd64395a6898eafe57f2e06fb059059dea8ede47a1f39e45d1a41",
+              "0x7b1707e00ad0cdc63fb199e0b584cf9ec26f8b18062e32c1a9ee83167396bed1",
+              "0xaf7e1f09c3c63301721d887770b5e88d0afe97fd2f40131d6f21d3eddf11b003",
+              "0x311fb9b141e17ea496f0b4210f2c393b66ad4ae22675c21b21e9b55cc7907622",
+              "0x9412f39c39a425baa9181ff75132d19e04f7c11376830426d41d3c19ff770618",
+              "0xbc97811fa73a3292d3ee1ddcda6f90f24a067fa2107f48c40eb7d2577954f040",
+              "0xf7933ae5deaa5cf122ab85974a900bdb47b975c44e4bc93a77bd1387735886d4",
+              "0xd5331b43e38cb8ad5529748fe0f9d9d4273f9c9e5bc2af4df89f133f7f8e23e5",
+              "0xff3d23e5c30a546c745b67a783962010c84763b0d65b0691b9003c49805218b7",
+              "0xc5f4562cd04f6c2380a83e7500c4032dbc06b6eb8828400e41f98c38e5ef18be",
+              "0x2e82cbb78eb210dd18058d31542c0eab8909b6958d236ee9f4e6be235fae9460",
+              "0x0d666b83b35473d79ed7c85bf8308662e6859efa24d00d49d0b98d8ec65072b8",
+              "0xb8bd676cc5fe66efe78f50bae8861abd4656e175a95e3def0382aa7105d92573",
+              "0xcbce13e72d9f0644d46f89e98f65c09b19641ccc765d7d44501ae5ca8d60145b",
+              "0x49127c6febbbc5ef392d26caf3befc82af74afb21b0d276729a90ba90eb368ae",
+              "0x3f87cc0395d1f8623ad0a66c49cedb5ad0844ec0914690a7588a45c13c31d1ae",
+              "0x77927e7c3dd3877083678a8740d4b1c42a2d91ac443cb43a4a6a38a1b739769b",
+              "0x14e12985e4f248e0c5f53abb2a9d01d20c001b4b9923924ea47cdc84dc3522d6",
+              "0xb7cc8c935ed179b750c13c8b7009d3d6ae0c7ce51eda84160bbb67146e2ff73e",
+              "0xef58d847bca6d122e145f50746b6e932a0d8d0c2abb144c06fe56d44ae8185cb",
+              "0xd0e3713c65328b4694a3548594925322f84f8168fb5a4059f73ee7738ca0a60b",
+              "0x29a91af4a99d93b2eaa12a90a2cae2c6e1eb7bc743d8a4a7a72ae55d36d8367c",
+              "0xf10d71bb2d61d5107c9e3b97d9d14f1d05c3994a3d70f9ae9a6bfdf224872dbc"
+            ],
+            "transactionsRoot": "0xbd3fac772cdbf1c535013a8e3a7fe9121e86d9fa3699ac881773b8378059706b",
+            "uncles": [],
+            "withdrawals": [],
+            "withdrawalsRoot": "0x05185fee2e0e34cd61687cb90e970bea46a23ffa613725eca7abd41ea08022ac"
+          }
+        },
+        {
+          "error": null,
+          "latency_ms": 176.82,
+          "method": "eth_syncing",
+          "ok": true,
+          "result": false
+        },
+        {
+          "error": null,
+          "latency_ms": 181.8,
+          "method": "net_version",
+          "ok": true,
+          "result": "10"
+        },
+        {
+          "error": null,
+          "latency_ms": 174.55,
+          "method": "eth_feeHistory",
+          "ok": true,
+          "result": {
+            "baseFeePerBlobGas": [
+              "0x1",
+              "0x1",
+              "0x1",
+              "0x1",
+              "0x1",
+              "0x2"
+            ],
+            "baseFeePerGas": [
+              "0x164",
+              "0x165",
+              "0x165",
+              "0x165",
+              "0x165",
+              "0x165"
+            ],
+            "blobGasUsedRatio": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "gasUsedRatio": [
+              0.5092617,
+              0.481132275,
+              0.385018875,
+              0.44364345,
+              0.469159525
+            ],
+            "oldestBlock": "0x979b951",
+            "reward": [
+              [
+                "0x29",
+                "0x6c571",
+                "0x4c4b40"
+              ],
+              [
+                "0x23",
+                "0x186a0",
+                "0x4c4b40"
+              ],
+              [
+                "0x21",
+                "0x5182",
+                "0xf4240"
+              ],
+              [
+                "0x2c",
+                "0x186a0",
+                "0x4c4b40"
+              ],
+              [
+                "0xf",
+                "0x39e",
+                "0x5b569"
+              ]
+            ]
+          }
+        },
+        {
+          "error": null,
+          "latency_ms": 171.66,
+          "method": "eth_maxPriorityFeePerGas",
+          "ok": true,
+          "result": "0xf4240"
+        },
+        {
+          "error": "HTTPError: HTTP Error 403: Forbidden",
+          "latency_ms": 188.59,
+          "method": "net_peerCount",
+          "ok": false,
+          "result": null
+        }
+      ],
+      "capabilities": {
+        "eth_feeHistory": true,
+        "eth_maxPriorityFeePerGas": true,
+        "net_peerCount": false
+      },
+      "chain_id": 10,
+      "chain_id_matches_expected": true,
+      "client_version": "op-reth/v2.8.0-d6620202/x86_64-linux",
+      "expected_chain_id": 10,
+      "family": "op-stack",
+      "fee_history": {
+        "base_fee_max_wei": 357,
+        "base_fee_min_wei": 356,
+        "gas_used_ratio_avg": 0.4576,
+        "oldest_block": 158972241,
+        "priority_fee_p50_avg_wei": 133111
+      },
+      "gas_price_wei": 1000357,
+      "health_score": 100,
+      "latest_block": {
+        "age_seconds": 0,
+        "base_fee_per_gas_wei": 357,
+        "gas_limit": 40000000,
+        "gas_used": 18766381,
+        "gas_utilization_pct": 46.92,
+        "hash": "0xee4132e3dc4f152df58d6a17eaee22f534ab5d4b86d43f152b53d2859869f080",
+        "number": 158972245,
+        "timestamp": 1793543267,
+        "transaction_count": 87
+      },
+      "max_priority_fee_per_gas_wei": 1000000,
+      "name": "optimism-mainnet",
+      "net_version": "10",
+      "ok": true,
+      "peer_count": null,
+      "progression": {
+        "blocks_advanced": 12749,
+        "elapsed_seconds": 25501.0,
+        "estimated_block_time_seconds": 2.0,
+        "previous_block": 158959496
+      },
+      "success_ratio": 1.0,
+      "successful_calls": 7,
+      "syncing": false,
+      "total_calls": 7
+    },
+    {
+      "anomalies": [],
+      "avg_latency_ms": 43.34,
+      "block_number": 520299620,
+      "calls": [
+        {
+          "error": null,
+          "latency_ms": 55.41,
+          "method": "eth_chainId",
+          "ok": true,
+          "result": "0xa4b1"
+        },
+        {
+          "error": null,
+          "latency_ms": 39.65,
+          "method": "eth_blockNumber",
+          "ok": true,
+          "result": "0x1f032464"
+        },
+        {
+          "error": null,
+          "latency_ms": 37.13,
+          "method": "eth_gasPrice",
+          "ok": true,
+          "result": "0x131e880"
+        },
+        {
+          "error": null,
+          "latency_ms": 48.79,
+          "method": "web3_clientVersion",
+          "ok": true,
+          "result": "nitro/v3.12.2+5f02f3f-20261014T220458Z/linux-arm64/go1.25.12"
+        },
+        {
+          "error": null,
+          "latency_ms": 36.77,
+          "method": "eth_getBlockByNumber",
+          "ok": true,
+          "result": {
+            "baseFeePerGas": "0x1315410",
+            "difficulty": "0x1",
+            "extraData": "0xc4bb7b9fe218c7eea27f972cb11da4498b63aa991fdd10e367cae225aa5eb82c",
+            "gasLimit": "0x4000000000000",
+            "gasUsed": "0x5208",
+            "hash": "0xa1942492d810ae682dc8568353024ff494a8a7a2aa5fb1ec95025a0b630b5144",
+            "l1BlockNumber": "0x1919e82",
+            "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+            "miner": "0xa4b000000000000000000073657175656e636572",
+            "mixHash": "0x0000000000028df30000000001919e82000000000000003d0001000000000000",
+            "nonce": "0x000000000027cdfe",
+            "number": "0x1f032464",
+            "parentHash": "0x8addf4d515ae842ed8c62a9d9c1c44455214ac69c62b80f0ec910be6da67bed5",
+            "receiptsRoot": "0xa1c5fae85b5482970ec48a3386201fe448ea368eced3136406baf0f19ced15a0",
+            "sendCount": "0x28df3",
+            "sendRoot": "0xc4bb7b9fe218c7eea27f972cb11da4498b63aa991fdd10e367cae225aa5eb82c",
+            "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+            "size": "0x32a",
+            "stateRoot": "0x4ffe34c9f746e4f4c31c00bf6ac8f4035a205c9fae32a4d45894a2b935a3ef31",
+            "timestamp": "0x6ae74c64",
+            "transactions": [
+              "0x87ed01fa4a8cacde28113d20a5b598cc6f43d6a5e77e58a0e044b38714490379",
+              "0x2c334d908ba7264902430d4c24ecd6b849c2bbf701c8e54aa90e7caa60b02a3e"
+            ],
+            "transactionsRoot": "0x84e21fb0bafd380c94816c25bae2ad418dd3438e3498ff4338590969a0de3b80",
+            "uncles": []
+          }
+        },
+        {
+          "error": "{\"code\": -32601, \"message\": \"the method eth_syncing does not exist/is not available\"}",
+          "latency_ms": 41.94,
+          "method": "eth_syncing",
+          "ok": false,
+          "result": null
+        },
+        {
+          "error": null,
+          "latency_ms": 42.27,
+          "method": "net_version",
+          "ok": true,
+          "result": "42161"
+        },
+        {
+          "error": null,
+          "latency_ms": 43.22,
+          "method": "eth_feeHistory",
+          "ok": true,
+          "result": {
+            "baseFeePerGas": [
+              "0x13182f0",
+              "0x1312d00",
+              "0x1315410",
+              "0x131e880",
+              "0x131f050",
+              "0x131f050"
+            ],
+            "gasUsedRatio": [
+              0.0158885,
+              0.07540435714285715,
+              0.07690435714285715,
+              0.08850971428571429,
+              0.007016142857142857
+            ],
+            "oldestBlock": "0x1f032462",
+            "reward": [
+              [
+                "0x0",
+                "0x0",
+                "0x0"
+              ],
+              [
+                "0x0",
+                "0x0",
+                "0x0"
+              ],
+              [
+                "0x0",
+                "0x0",
+                "0x0"
+              ],
+              [
+                "0x0",
+                "0x0",
+                "0x0"
+              ],
+              [
+                "0x0",
+                "0x0",
+                "0x0"
+              ]
+            ]
+          }
+        },
+        {
+          "error": null,
+          "latency_ms": 35.45,
+          "method": "eth_maxPriorityFeePerGas",
+          "ok": true,
+          "result": "0x0"
+        },
+        {
+          "error": "{\"code\": -32601, \"message\": \"the method net_peerCount does not exist/is not available\"}",
+          "latency_ms": 39.34,
+          "method": "net_peerCount",
+          "ok": false,
+          "result": null
+        }
+      ],
+      "capabilities": {
+        "eth_feeHistory": true,
+        "eth_maxPriorityFeePerGas": true,
+        "net_peerCount": false
+      },
+      "chain_id": 42161,
+      "chain_id_matches_expected": true,
+      "client_version": "nitro/v3.12.2+5f02f3f-20261014T220458Z/linux-arm64/go1.25.12",
+      "expected_chain_id": 42161,
+      "family": "arbitrum-nitro",
+      "fee_history": {
+        "base_fee_max_wei": 20050000,
+        "base_fee_min_wei": 20000000,
+        "gas_used_ratio_avg": 0.0527,
+        "oldest_block": 520299618,
+        "priority_fee_p50_avg_wei": 0
+      },
+      "gas_price_wei": 20048000,
+      "health_score": 93,
+      "latest_block": {
+        "age_seconds": 1,
+        "base_fee_per_gas_wei": 20010000,
+        "gas_limit": 1125899906842624,
+        "gas_used": 21000,
+        "gas_utilization_pct": 0.0,
+        "hash": "0xa1942492d810ae682dc8568353024ff494a8a7a2aa5fb1ec95025a0b630b5144",
+        "number": 520299620,
+        "timestamp": 1793543268,
+        "transaction_count": 2
+      },
+      "max_priority_fee_per_gas_wei": 0,
+      "name": "arbitrum-one",
+      "net_version": "42161",
+      "ok": true,
+      "peer_count": null,
+      "progression": {
+        "blocks_advanced": 87263,
+        "elapsed_seconds": 25501.0,
+        "estimated_block_time_seconds": 0.292,
+        "previous_block": 520212357
+      },
+      "success_ratio": 0.8571,
+      "successful_calls": 6,
+      "syncing": false,
+      "total_calls": 7
+    },
+    {
+      "anomalies": [],
+      "avg_latency_ms": 122.3,
+      "block_number": 99137584,
+      "calls": [
+        {
+          "error": null,
+          "latency_ms": 466.83,
+          "method": "eth_chainId",
+          "ok": true,
+          "result": "0xa86a"
+        },
+        {
+          "error": null,
+          "latency_ms": 73.9,
+          "method": "eth_blockNumber",
+          "ok": true,
+          "result": "0x5e8b830"
+        },
+        {
+          "error": null,
+          "latency_ms": 53.91,
+          "method": "eth_gasPrice",
+          "ok": true,
+          "result": "0x9502f996"
+        },
+        {
+          "error": null,
+          "latency_ms": 54.88,
+          "method": "web3_clientVersion",
+          "ok": true,
+          "result": "avalanchego/1.15.1 [database=v1.4.5, rpcchainvm=46, commit=fdb2c1b9b02ef357b5867d5ababb6acc83837a01, go=1.26.8]"
+        },
+        {
+          "error": null,
+          "latency_ms": 55.94,
+          "method": "eth_getBlockByNumber",
+          "ok": true,
+          "result": {
+            "baseFeePerGas": "0x9502f900",
+            "blobGasUsed": "0x0",
+            "blockExtraData": "0x",
+            "blockGasCost": "0x0",
+            "difficulty": "0x1",
+            "excessBlobGas": "0x0",
+            "extDataGasUsed": "0x0",
+            "extDataHash": "0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421",
+            "extraData": "0x000000000000",
+            "gasLimit": "0x4c4b400",
+            "gasUsed": "0x249f0",
+            "hash": "0x1b2ada3dae940dcb331237459c8ecd4db3f24751cf54f19e12f2b16c0a66d490",
+            "logsBloom": "0x00000000000000000000040000000000408080000000000000000080000000000000001000000000000000010000000000000000000000000000000000000000000000000800400008000008000000000000000000000000000008000000020000000000000008000000000000000000000000200000000000000010000000000000000000001000000000000000000000000010000020000000000040100001000000000000004000000000000000000000400000081000000000000000000000000002000000000404000000000000000000000000000004000000000000000000000000000000000000000000000040000000000000020000000040000000",
+            "minDelayExcess": "0x68d13a",
+            "minPriceExponent": "0x7ce08b2f603136cd",
+            "miner": "0x0100000000000000000000000000000000000000",
+            "mixHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "nonce": "0x0000000000000000",
+            "number": "0x5e8b835",
+            "parentBeaconBlockRoot": "0x0000000000000000000000000000000000000000000000000000000000000000",
+            "parentHash": "0xa3f3a6dd9193be36f078fbbdc9209e1e877a01ae7b2035e374fe747da58ed9c0",
+            "receiptsRoot": "0x1c95a78115084f5bd6ee6fa94131d679c31de3545c9a0f1e18b95daba2fe19e3",
+            "settledExcess": "0x1c0de66aa",
+            "settledGasNumerator": "0x66b68",
+            "settledGasUnix": "0x6ae74c60",
+            "settledHeight": "0x5e8b82d",
+            "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+            "size": "0x31f",
+            "stateRoot": "0xfed2f6ea71cfef97a5c68143c37b546b0e59e915d7855117a978534782f886d3",
+            "targetExponent": "0x2c5c860",
+            "timestamp": "0x6ae74c65",
+            "timestampMilliseconds": "0x1a197826ce2",
+            "totalDifficulty": "0x0",
+            "transactions": [
+              "0xaf87514820f2a453910ba53518133fd0a6fc1c7d98ba5216dcdae25ce8f5e309"
+            ],
+            "transactionsRoot": "0xa80ac0b13fc713ddb83521e9f9b47e540c86ac4dc749a8ac79553ac536d143d9",
+            "uncles": []
+          }
+        },
+        {
+          "error": "{\"code\": -32000, \"message\": \"not implemented in coreth\"}",
+          "latency_ms": 26.84,
+          "method": "eth_syncing",
+          "ok": false,
+          "result": null
+        },
+        {
+          "error": null,
+          "latency_ms": 28.36,
+          "method": "net_version",
+          "ok": true,
+          "result": "43114"
+        },
+        {
+          "error": null,
+          "latency_ms": 53.66,
+          "method": "eth_feeHistory",
+          "ok": true,
+          "result": {
+            "baseFeePerGas": [
+              "0x9502f900",
+              "0x9502f900",
+              "0x9502f900",
+              "0x9502f900",
+              "0x9502f900",
+              "0x950b31e3"
+            ],
+            "gasUsedRatio": [
+              0.0020205,
+              0.0081151,
+              0.004719875,
+              0.0069846375,
+              0.001875
+            ],
+            "oldestBlock": "0x5e8b831",
+            "reward": [
+              [
+                "0x96",
+                "0x96",
+                "0x96"
+              ],
+              [
+                "0x1dcd6500",
+                "0x1dcd6500",
+                "0x1dcd6500"
+              ],
+              [
+                "0xf4240",
+                "0x460913c0",
+                "0xb2d05e00"
+              ],
+              [
+                "0x0",
+                "0x0",
+                "0x96"
+              ],
+              [
+                "0x77359400",
+                "0x77359400",
+                "0x77359400"
+              ]
+            ]
+          }
+        },
+        {
+          "error": null,
+          "latency_ms": 63.66,
+          "method": "eth_maxPriorityFeePerGas",
+          "ok": true,
+          "result": "0x96"
+        },
+        {
+          "error": null,
+          "latency_ms": 63.42,
+          "method": "net_peerCount",
+          "ok": true,
+          "result": "0x257"
+        }
+      ],
+      "capabilities": {
+        "eth_feeHistory": true,
+        "eth_maxPriorityFeePerGas": true,
+        "net_peerCount": true
+      },
+      "chain_id": 43114,
+      "chain_id_matches_expected": true,
+      "client_version": "avalanchego/1.15.1 [database=v1.4.5, rpcchainvm=46, commit=fdb2c1b9b02ef357b5867d5ababb6acc83837a01, go=1.26.8]",
+      "expected_chain_id": 43114,
+      "family": "avalanche",
+      "fee_history": {
+        "base_fee_max_wei": 2500538851,
+        "base_fee_min_wei": 2500000000,
+        "gas_used_ratio_avg": 0.0047,
+        "oldest_block": 99137585,
+        "priority_fee_p50_avg_wei": 735000030
+      },
+      "gas_price_wei": 2500000150,
+      "health_score": 93,
+      "latest_block": {
+        "age_seconds": 0,
+        "base_fee_per_gas_wei": 2500000000,
+        "gas_limit": 80000000,
+        "gas_used": 150000,
+        "gas_utilization_pct": 0.19,
+        "hash": "0x1b2ada3dae940dcb331237459c8ecd4db3f24751cf54f19e12f2b16c0a66d490",
+        "number": 99137589,
+        "timestamp": 1793543269,
+        "transaction_count": 1
+      },
+      "max_priority_fee_per_gas_wei": 150,
+      "name": "avalanche-c-chain",
+      "net_version": "43114",
+      "ok": true,
+      "peer_count": 599,
+      "progression": {
+        "blocks_advanced": 26970,
+        "elapsed_seconds": 25501.0,
+        "estimated_block_time_seconds": 0.946,
+        "previous_block": 99110614
+      },
+      "success_ratio": 0.8571,
+      "successful_calls": 6,
+      "syncing": false,
+      "total_calls": 7
+    }
+  ],
+  "sampling_interval_minutes": 15,
+  "schema_version": 3
+}
