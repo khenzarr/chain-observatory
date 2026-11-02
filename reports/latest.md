@@ -1,15 +1,15 @@
 # Latest Network Observation
 
-Collected: `2026-11-02T09:39:31Z`
+Collected: `2026-11-02T19:49:23Z`
 Networks: **6** · Anomalies: **1**
 
 | Network | Status | Health | Block | Block age | Latency | Gas | Gas use | Block time | Anomalies | Client |
 |---|---|---:|---:|---:|---:|---:|---:|---:|---:|---|
-| ethereum-mainnet | OK | 69 | — | — s | 58.17 ms | — | —% | — s | 1 | cloudflare-ethereum |
-| arc-mainnet | OK | 95 | 29137876 | 0 s | 469.47 ms | 30000000000 | 0.63% | 0.507 s | 0 | reth/v2.2.0-88505c7/x86_64-unknown-linux-gnu |
-| base-mainnet | OK | 93 | 53411514 | 1 s | 116.7 ms | 6000000 | 12.35% | 2.0 s | 0 | reth/v2.5.2-7134be3/x86_64-unknown-linux-gnu/base/v1.5.0 |
-| optimism-mainnet | OK | 100 | 159006800 | 0 s | 232.25 ms | 1000286 | 17.85% | 2.0 s | 0 | op-reth/v2.8.0-d6620202/x86_64-linux |
-| arbitrum-one | OK | 93 | 520530495 | 0 s | 124.76 ms | 20006000 | 0.0% | 0.303 s | 0 | nitro/v3.12.2+5f02f3f-20261014T220458Z/linux-arm64/go1.25.12 |
-| avalanche-c-chain | OK | 93 | 99208124 | 0 s | 105.75 ms | 2508762258 | 4.61% | 0.971 s | 0 | avalanchego/1.15.1 [database=v1.4.5, rpcchainvm=46, commit=fdb2c1b9b02ef357b5867d5ababb6acc83837a01, go=1.26.8] |
+| ethereum-mainnet | OK | 69 | — | — s | 45.48 ms | — | —% | — s | 1 | cloudflare-ethereum |
+| arc-mainnet | OK | 95 | 29209530 | 0 s | 259.59 ms | 20001000000 | 0.18% | 0.511 s | 0 | reth/v2.2.0-88505c7/x86_64-unknown-linux-gnu |
+| base-mainnet | OK | 93 | 53429809 | 1 s | 27.48 ms | 6000000 | 7.88% | 2.0 s | 0 | reth/v2.5.2-7134be3/x86_64-unknown-linux-gnu/base/v1.5.0 |
+| optimism-mainnet | OK | 100 | 159025094 | 0 s | 114.72 ms | 1000300 | 25.39% | 2.0 s | 0 | op-reth/v2.8.0-d6620202/x86_64-linux |
+| arbitrum-one | OK | 93 | 520663862 | 0 s | 42.3 ms | 20000000 | 0.0% | 0.274 s | 0 | nitro/v3.12.3-rc.4+7116cfc-20261028T163253Z/linux-arm64/go1.25.12 |
+| avalanche-c-chain | OK | 93 | 99247014 | 2 s | 41.07 ms | 2500000150 | 0.1% | 0.941 s | 0 | avalanchego/1.15.1 [database=v1.4.5, rpcchainvm=46, commit=fdb2c1b9b02ef357b5867d5ababb6acc83837a01, go=1.26.8] |
 
 Generated automatically from the immutable raw JSON snapshots in `data/observations/`.
